@@ -73,15 +73,15 @@ Below is the complete list of writeup URLs, benchmark URLs, task URLs, and noteb
 *   **Writeup URL:** [ittia-i-think-therefore-i-am](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/ittia-i-think-therefore-i-am)
 *   **Benchmark URL:** [ittia-i-think-therefore-i-am](https://www.kaggle.com/benchmarks/shivaurora/ittia-i-think-therefore-i-am)
 *   **Tasks:**
-    *   **Task 1:** [ittia-stress-rule-a](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-stress-rule-a/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3a)
-    *   **Task 2:** [ittia-stress-rule-b](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-stress-rule-b/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3b)
-    *   **Task 3:** [ittia-sw-interleaved](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-sw-interleaved/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2c)
-    *   **Task 6:** [t1a-ittia-cs-congruent](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1a-ittia-cs-congruent/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1a-conflict-suppression)
-    *   **Task 7:** [t1b-ittia-cs-incongruent](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1b-ittia-cs-incongruent/2) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1b-v2)
-    *   **Task 8:** [t1c-ittia-cs-ceiling](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1c-ittia-cs-ceiling/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1c-v2)
-    *   **Task 9:** [t2a-ittia-sw-non-switch](https://www.kaggle.com/benchmarks/tasks/shivaurora/t2a-ittia-sw-non-switch/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2a-v2)
-    *   **Task 10:** [t2b-ittia-sw-post-switch](https://www.kaggle.com/benchmarks/tasks/shivaurora/t2b-ittia-sw-post-switch/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2b-v2)
-    *   **Task 11:** [t3c-ittia-stress-ceiling](https://www.kaggle.com/benchmarks/tasks/shivaurora/t3c-ittia-stress-ceiling/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3c)
+    *   **Task 1:** [t1a-ittia_cs_congruent](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1a-ittia-cs-congruent/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1a-conflict-suppression)
+    *   **Task 2:** [t1b-ittia_cs_incongruent](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1b-ittia-cs-incongruent/2) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1b-v2)
+    *   **Task 3:** [t1c-ittia_cs_ceiling](https://www.kaggle.com/benchmarks/tasks/shivaurora/t1c-ittia-cs-ceiling/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-1c-v2)
+    *   **Task 4:** [t2a-ittia_sw_non_switch](https://www.kaggle.com/benchmarks/tasks/shivaurora/t2a-ittia-sw-non-switch/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2a-v2)
+    *   **Task 5:** [t2b-ittia_sw_post_switch](https://www.kaggle.com/benchmarks/tasks/shivaurora/t2b-ittia-sw-post-switch/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2b-v2)
+    *   **Task 6:** [ittia_sw_interleaved](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-sw-interleaved/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-2c)
+    *   **Task 7:** [ittia_stress_rule_a](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-stress-rule-a/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3a)
+    *   **Task 8:** [ittia_stress_rule_b](https://www.kaggle.com/benchmarks/tasks/shivaurora/ittia-stress-rule-b/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3b)
+    *   **Task 9:** [t3c-ittia_stress_ceiling](https://www.kaggle.com/benchmarks/tasks/shivaurora/t3c-ittia-stress-ceiling/1) | [Notebook](https://www.kaggle.com/code/shivaurora/task-3c)
 
 ---
 
@@ -90,8 +90,14 @@ Below is the complete list of writeup URLs, benchmark URLs, task URLs, and noteb
 *   **Writeup URL:** [new-writeup-1775378504699](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/new-writeup-1775378504699)
 *   **Benchmark URL:** [embodied-inhibitory-control-in-animalai](https://www.kaggle.com/benchmarks/patrickquinn/embodied-inhibitory-control-in-animalai)
 *   **Tasks:**
-    *   **Task 1:** [embodied-inhibitory-control-text-only-control](https://www.kaggle.com/benchmarks/tasks/benaslater/embodied-inhibitory-control-text-only-control/2) | [Notebook](https://www.kaggle.com/code/benaslater/embodied-inhibitory-control-text-task-control)
-    *   **Task 2:** [embodied-inhibitory-control-text-only](https://www.kaggle.com/benchmarks/tasks/benaslater/embodied-inhibitory-control-text-only/5) | [Notebook](https://www.kaggle.com/code/benaslater/embodied-inhibitory-control-text-task-test)
+    *   **Task 1:** [animalai-task](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-task/8) | [Notebook](https://www.kaggle.com/code/patrickquinn/animalai-task-control)
+    *   **Task 2:** [animalai-test-task](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-test-task/7) | [Notebook](https://www.kaggle.com/code/patrickquinn/animalai-task-test)
+    *   **Task 3:** [animalai-physics-task-control](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-physics-task-control/4) | [Notebook](https://www.kaggle.com/code/patrickquinn/aai-physics-task-control)
+    *   **Task 4:** [animalai-physics-task-test](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-physics-task-test/4) | [Notebook](https://www.kaggle.com/code/patrickquinn/aai-physics-task-test)
+    *   **Task 5:** [animalai-vision-task-control](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-vision-task-control/5) | [Notebook](https://www.kaggle.com/code/patrickquinn/aai-vision-task-control)
+    *   **Task 6:** [animalai-vision-task-test](https://www.kaggle.com/benchmarks/tasks/patrickquinn/animalai-vision-task-test/6) | [Notebook](https://www.kaggle.com/code/patrickquinn/aai-vision-task-test)
+    *   **Task 7:** [embodied-inhibitory-control-text-only-control](https://www.kaggle.com/benchmarks/tasks/benaslater/embodied-inhibitory-control-text-only-control/2) | [Notebook](https://www.kaggle.com/code/benaslater/embodied-inhibitory-control-text-task-control)
+    *   **Task 8:** [embodied-inhibitory-control-text-only](https://www.kaggle.com/benchmarks/tasks/benaslater/embodied-inhibitory-control-text-only/5) | [Notebook](https://www.kaggle.com/code/benaslater/embodied-inhibitory-control-text-task-test)
 
 ---
 
@@ -100,9 +106,7 @@ Below is the complete list of writeup URLs, benchmark URLs, task URLs, and noteb
 *   **Writeup URL:** [social-cognition-benchmark](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/social-cognition-benchmark)
 *   **Benchmark URL:** [fos1](https://www.kaggle.com/benchmarks/tobi2x/fos1)
 *   **Tasks:**
-    *   **Task 2:** [nested-belief-tracking-v2](https://www.kaggle.com/benchmarks/tasks/anthonyherronbsu/nested-belief-tracking-v2/1) | [Notebook](https://www.kaggle.com/code/anthonyherronbsu/combined-social-cog-task)
-    *   **Task 3:** [nested-belief-tracking-v2 (alt)](https://www.kaggle.com/benchmarks/tasks/matthewakinmolayan/nested-belief-tracking-v2/1) | [Notebook](https://www.kaggle.com/code/anthonyherronbsu/combined-social-cog-task)
-    *   **Task 4:** [subtle-framing-eval](https://www.kaggle.com/benchmarks/tasks/tobi2x/subtle-framing-eval) | [Notebook](https://www.kaggle.com/code/tobi2x/fos-task)
+    *   **Task 1:** [subtle-framing-eval](https://www.kaggle.com/benchmarks/tasks/tobi2x/subtle-framing-eval) | [Notebook](https://www.kaggle.com/code/tobi2x/fos-task)
 
 ---
 
@@ -139,9 +143,12 @@ Below is the complete list of writeup URLs, benchmark URLs, task URLs, and noteb
 *   **Writeup URL:** [new-writeup-1775686637271](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/new-writeup-1775686637271)
 *   **Benchmark URL:** [temporal-tasks](https://www.kaggle.com/benchmarks/zacharymaronek/temporal-tasks)
 *   **Tasks:**
-    *   **Task 3:** [changedetection](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/changedetection/3) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporalbench-v2-pccc)
-    *   **Task 4:** [pastquerytrap](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/pastquerytrap/4) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporalbenchv4)
-    *   **Task 6:** [stalenessdetection](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/stalenessdetection/3) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporal-task-staleness-detection)
+    *   **Task 1:** [stalenessdetection](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/stalenessdetection/3) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporal-task-staleness-detection)
+    *   **Task 2:** [reversion-evaluation](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/reversion-evaluation/1) | *Private Notebook (no public URL)*
+    *   **Task 3:** [causalreasoning](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/causalreasoning/1) | *Private Notebook (no public URL)*
+    *   **Task 4:** [asofqa](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/asofqa/1) | *Private Notebook (no public URL)*
+    *   **Task 5:** [changedetection](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/changedetection/3) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporalbench-v2-pccc)
+    *   **Task 6:** [pastquerytrap](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/pastquerytrap/4) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporalbenchv4)
     *   **Task 7:** [temporal-ambiguity](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/temporal-ambiguity/1) | [Notebook](https://www.kaggle.com/code/zacharymaronek/task-2-temporal-ambiguity)
     *   **Task 8:** [temporalbench-v4-overlapquery](https://www.kaggle.com/benchmarks/tasks/zacharymaronek/temporalbench-v4-overlapquery/1) | [Notebook](https://www.kaggle.com/code/zacharymaronek/temporalbench-eval)
 
@@ -151,7 +158,23 @@ Below is the complete list of writeup URLs, benchmark URLs, task URLs, and noteb
 
 *   **Writeup URL:** [executive-functions-the-cognitive-control-suite](https://www.kaggle.com/competitions/kaggle-measuring-agi/writeups/executive-functions-the-cognitive-control-suite)
 *   **Benchmark URL:** [executive-functions-the-cognitive-control-suite](https://www.kaggle.com/benchmarks/naivedhyaagrawal/executive-functions-the-cognitive-control-suite)
-*   *(Note: No public task links or notebooks were submitted)*
+*   **Tasks:**
+    *   **Task 1:** [action-cancellation](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/action-cancellation/1) | *Private Notebook (no public URL)*
+    *   **Task 2:** [cognitive-estimation](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/cognitive-estimation/1) | *Private Notebook (no public URL)*
+    *   **Task 3:** [digit-span](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/digit-span/1) | *Private Notebook (no public URL)*
+    *   **Task 4:** [dual-task](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/dual-task/1) | *Private Notebook (no public URL)*
+    *   **Task 5:** [flanker](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/flanker/2) | *Private Notebook (no public URL)*
+    *   **Task 6:** [go-nogo](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/go-nogo/1) | *Private Notebook (no public URL)*
+    *   **Task 7:** [memory-cascade](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/memory-cascade/1) | *Private Notebook (no public URL)*
+    *   **Task 8:** [n-back](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/n-back/1) | *Private Notebook (no public URL)*
+    *   **Task 9:** [planning-paradox](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/planning-paradox/1) | *Private Notebook (no public URL)*
+    *   **Task 10:** [reversal-trap](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/reversal-trap/4) | *Private Notebook (no public URL)*
+    *   **Task 11:** [rule-switch](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/rule-switch/4) | *Private Notebook (no public URL)*
+    *   **Task 12:** [stroop-gauntlet](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/stroop-gauntlet/4) | *Private Notebook (no public URL)*
+    *   **Task 13:** [tower-of-hanoi](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/tower-of-hanoi/1) | *Private Notebook (no public URL)*
+    *   **Task 14:** [trail-making](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/trail-making/1) | *Private Notebook (no public URL)*
+    *   **Task 15:** [verbal-fluency](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/verbal-fluency/2) | *Private Notebook (no public URL)*
+    *   **Task 16:** [wisconsin-card-sort](https://www.kaggle.com/benchmarks/tasks/naivedhyaagrawal/wisconsin-card-sort/1) | *Private Notebook (no public URL)*
 
 ---
 
