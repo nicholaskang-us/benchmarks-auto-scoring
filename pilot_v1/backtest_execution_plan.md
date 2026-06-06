@@ -106,10 +106,11 @@ Produce a summary artifact answering:
 ## Step 5: Staging and Pushing Results
 
 When pushing backtest evaluation results to the repository, follow this folder structure:
-*   Create a subfolder under `/pilot_v1` named `results_<YYYY-MM-DD HH:MM>` using the UTC time of the push (e.g. `results_2026-06-06 00:30`)
-*   Place the following files inside the timestamped subfolder:
+*   Create a subfolder under `/pilot_v1` named `results_<YYYY-MM-DD HH:MM>` using the Pacific Time (PT) of the push (e.g. `results_2026-06-05 17:30`)
+*   Place the following files and directories inside the timestamped subfolder:
     *   `task_level_results.md` - the complete Markdown table containing evaluations of all individual tasks with hyperlinked benchmark and task pages
     *   `backtest_analysis_results.md` - the markdown report detailing correlation statistics, criterion-level analysis, and key discrepancies
+    *   `logs/` - a subfolder containing the exact execution logs and transcripts of the subagent traces (e.g. `group_a_transcript.jsonl`, `group_b_transcript.jsonl`, `group_c_transcript.jsonl`)
 *   Clean up any scratch or script files (such as python code used for collation or generation) from the root `/pilot_v1` directory before committing, ensuring only the core documentation remains in the parent folder
 
 ---
