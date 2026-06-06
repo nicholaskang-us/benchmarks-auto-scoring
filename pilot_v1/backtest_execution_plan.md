@@ -103,10 +103,23 @@ Produce a summary artifact answering:
 
 ---
 
+## Step 5: Staging and Pushing Results
+
+When pushing backtest evaluation results to the repository, follow this folder structure:
+*   Create a subfolder under `/pilot_v1` named `results_<YYYY-MM-DD HH:MM>` using the UTC time of the push (e.g. `results_2026-06-06 00:30`)
+*   Place the following files inside the timestamped subfolder:
+    *   `task_level_results.md` - the complete Markdown table containing evaluations of all individual tasks with hyperlinked benchmark and task pages
+    *   `backtest_analysis_results.md` - the markdown report detailing correlation statistics, criterion-level analysis, and key discrepancies
+*   Clean up any scratch or script files (such as python code used for collation or generation) from the root `/pilot_v1` directory before committing, ensuring only the core documentation remains in the parent folder
+
+---
+
 ## Expected Timeline
 
 *   **Step 1:** ~3-5 minutes (parallel subagent execution)
 *   **Step 2:** ~1 minute (CSV generation)
 *   **Step 3:** ~1 minute (merge)
 *   **Step 4:** ~2 minutes (analysis artifact)
-*   **Total:** ~10 minutes end to end
+*   **Step 5:** ~1 minute (results staging and pushing)
+*   **Total:** ~11 minutes end to end
+
