@@ -8,17 +8,21 @@ def clean_name(name):
     name = name.replace('’', "'").replace('—', '-').replace('-', '-')
     return name
 
+def normalize_string(name):
+    # Remove all non-alphanumeric characters
+    return re.sub(r'[^a-z0-9]', '', name.lower())
+
 def main():
     links_file = "/usr/local/google/home/nicholaskang/benchmarks-auto-scoring/pilot_v1/agi_hackathon_benchmark_links.md"
     eval_a_path = "/usr/local/google/home/nicholaskang/.gemini/jetski/brain/32c7545d-8652-4893-a8ec-6b46770566b4/scratch/evaluations.json"
     eval_b_path = "/tmp/benchmark_scores.json"
     eval_c_path = "/tmp/subagent_c_scores.json"
     rankings_csv_path = "/tmp/competitions-prep/misc/agi_hackathon_judge/score_calibration/calibration_output_0604/calibrated_rankings.csv"
-    out_tsv_path = "/usr/local/google/home/nicholaskang/benchmarks-auto-scoring/pilot_v1/task_level_results.tsv"
+    out_md_path = "/usr/local/google/home/nicholaskang/benchmarks-auto-scoring/pilot_v1/task_level_results.md"
 
     # --- 1. Parse agi_hackathon_benchmark_links.md for URLs ---
     benchmark_urls = {} # clean_name -> benchmark_url
-    task_urls = {}      # (clean_benchmark_name, clean_task_name/slug) -> task_url
+    task_urls = {}      # (clean_benchmark_name, clean_task_slug_no_spaces) -> task_url
 
     with open(links_file, "r") as f:
         lines = f.readlines()
@@ -33,7 +37,6 @@ def main():
             
         # Parse benchmark header
         if line.startswith("## "):
-            # e.g., "## 1. Behavioral Metacognitive Control on Expert Questions in LLMs"
             m = re.match(r'^##\s+\d+\.\s*(.*)', line)
             if m:
                 current_bench_name = m.group(1).strip()
@@ -42,7 +45,6 @@ def main():
             
         # Parse benchmark URL
         if current_bench_name and "**Benchmark URL:**" in line:
-            # e.g., "*   **Benchmark URL:** [msv-metacognition-benchmark](https://www.kaggle.com/benchmarks/professorsethi/msv-metacognition-benchmark)"
             m = re.search(r'\(https://www.kaggle.com/benchmarks/[^\)]+\)', line)
             if m:
                 current_bench_url = m.group(0)[1:-1]
@@ -51,13 +53,11 @@ def main():
             
         # Parse task lines
         if current_bench_name and line.startswith("*") and "**Task" in line:
-            # e.g., "*   **Task 1:** [t01-msv-delegate-game](https://www.kaggle.com/benchmarks/tasks/professorsethi/t01-msv-delegate-game/4) | [Notebook](...)"
-            # Extract task name/slug and task URL
             slug_match = re.search(r'\[(.*?)\]\((https://www.kaggle.com/benchmarks/tasks/[^\)]+)\)', line)
             if slug_match:
                 task_slug = slug_match.group(1)
                 task_url = slug_match.group(2)
-                task_urls[(clean_name(current_bench_name), clean_name(task_slug))] = task_url
+                task_urls[(clean_name(current_bench_name), normalize_string(task_slug))] = task_url
 
     # Add fallback mappings for writeup names to clean names
     name_replacements = {
@@ -76,6 +76,18 @@ def main():
         "adversarial cognitive profiling (acp): metacognitive calibration benchmark": "Adversarial Cognitive Profiling (ACP): Metacognitive Calibration Benchmark",
         "temporalbench: validity windows beat decay functions in temporal reasoning": "TemporalBench: Validity Windows Beat Decay Functions in Temporal Reasoning",
         "constraint adaptation benchmark (cab)": "Constraint Adaptation Benchmark (CAB)"
+    }
+
+    # Task Synonyms Map to resolve non-matching slugs Fuzzily
+    task_synonyms = {
+        "repetition-induced attention collapse (numbers)": "riac-bench-number-repetition",
+        "repetition-induced attention collapse (words)": "riac-bench-word-repetition",
+        "repetition-induced attention collapse (symbols)": "riac-bench-symbol-repetition",
+        "repetition-induced attention collapse (noise)": "riac-bench-noise",
+        "animalai control task": "animalai-task",
+        "temporalbench-v1-causalquery": "causalreasoning",
+        "code golf benchmark": "code-golf-task",
+        "embedding geometry awareness test | tier 1: shared semantic space com convergence": "egat-tier1-shared-semantic-space"
     }
 
     # --- 2. Load rankings for human calibrated judge rating ---
@@ -98,7 +110,6 @@ def main():
     # Helper function to find matching URL from our maps
     def get_urls(b_name, t_name):
         clean_b = clean_name(b_name)
-        # Find matched benchmark standard name
         standard_b_name = None
         for k, v in name_replacements.items():
             if clean_name(k) == clean_b or clean_b in clean_name(k) or clean_name(k) in clean_b:
@@ -107,16 +118,26 @@ def main():
         if not standard_b_name:
             standard_b_name = b_name
 
-        b_url = benchmark_urls.get(clean_name(standard_b_name), "")
+        # Match benchmark URL fuzzily
+        b_url = ""
+        clean_standard_b = clean_name(standard_b_name)
+        for k, v in benchmark_urls.items():
+            if k == clean_standard_b or k in clean_standard_b or clean_standard_b in k:
+                b_url = v
+                break
         
-        # Match task URL
-        clean_t = clean_name(t_name)
+        # Match task URL using synonyms or similarity matching with fuzzy benchmark matching too
+        lookup_t_name = t_name
+        clean_t_lower = t_name.strip().lower()
+        if clean_t_lower in task_synonyms:
+            lookup_t_name = task_synonyms[clean_t_lower]
+
+        norm_t = normalize_string(lookup_t_name)
         t_url = ""
-        # Search task urls keys for matching (clean_b, clean_t)
         for (cb, ct), url in task_urls.items():
-            if cb == clean_name(standard_b_name):
-                # Check if task slug matches
-                if ct == clean_t or clean_t in ct or ct in clean_t:
+            if cb == clean_standard_b or cb in clean_standard_b or clean_standard_b in cb:
+                # Check if normalized strings match or one is substring of the other
+                if ct == norm_t or norm_t in ct or ct in norm_t:
                     t_url = url
                     break
         return standard_b_name, b_url, t_url
@@ -210,39 +231,46 @@ def main():
                 row["human_calibrated_judge_rating"] = human_ratings.get(clean_name(standard_b), "")
                 tasks_rows.append(row)
 
-    # --- 4. Write to TSV ---
-    headers = [
-        "benchmark (url)", "task (url)",
-        "answer_correctness_score", "answer_correctness_justification",
-        "prompt_clarity_score", "prompt_clarity_justification",
-        "capability_targeting_score", "capability_targeting_justification",
-        "code_quality_score", "code_quality_justification",
-        "documentation_score", "documentation_justification",
-        "sum_of_scores", "human_calibrated_judge_rating"
-    ]
-
-    with open(out_tsv_path, "w", newline="") as f:
-        writer = csv.writer(f, delimiter="\t")
-        writer.writerow(headers)
+    # --- 4. Write to Markdown Table ---
+    with open(out_md_path, "w") as f:
+        f.write("# Task-Level Results\n\n")
+        
+        headers = [
+            "Benchmark (URL)", "Task (URL)",
+            "Answer Correctness Score", "Answer Correctness Justification",
+            "Prompt Clarity Score", "Prompt Clarity Justification",
+            "Capability Targeting Score", "Capability Targeting Justification",
+            "Code Quality Score", "Code Quality Justification",
+            "Documentation Score", "Documentation Justification",
+            "Sum of Scores", "Human Calibrated Judge Rating"
+        ]
+        
+        f.write(" | ".join(headers) + "\n")
+        f.write(" | ".join(["---"] * len(headers)) + "\n")
+        
         for r in tasks_rows:
-            # Build benchmark (url) and task (url) Markdown links or plain strings
             b_link = f"[{r['benchmark_name']}]({r['benchmark_url']})" if r['benchmark_url'] else r['benchmark_name']
             t_link = f"[{r['task_name']}]({r['task_url']})" if r['task_url'] else r['task_name']
+            
+            # Clean justifications of any line breaks to keep markdown table row valid
+            for k in r:
+                if isinstance(r[k], str):
+                    r[k] = r[k].replace("\n", " ").replace("\r", "")
             
             row_vals = [
                 b_link,
                 t_link,
-                r["answer_correctness_score"], r["answer_correctness_justification"],
-                r["prompt_clarity_score"], r["prompt_clarity_justification"],
-                r["capability_targeting_score"], r["capability_targeting_justification"],
-                r["code_quality_score"], r["code_quality_justification"],
-                r["documentation_score"], r["documentation_justification"],
-                r["sum_of_scores"],
-                r["human_calibrated_judge_rating"]
+                str(r["answer_correctness_score"]), r["answer_correctness_justification"],
+                str(r["prompt_clarity_score"]), r["prompt_clarity_justification"],
+                str(r["capability_targeting_score"]), r["capability_targeting_justification"],
+                str(r["code_quality_score"]), r["code_quality_justification"],
+                str(r["documentation_score"]), r["documentation_justification"],
+                str(r["sum_of_scores"]),
+                f"{r['human_calibrated_judge_rating']}%" if r['human_calibrated_judge_rating'] != "" else ""
             ]
-            writer.writerow(row_vals)
+            f.write(" | ".join(row_vals) + "\n")
 
-    print(f"Successfully wrote {len(tasks_rows)} rows to {out_tsv_path}")
+    print(f"Successfully wrote {len(tasks_rows)} rows to {out_md_path}")
 
 if __name__ == "__main__":
     main()
