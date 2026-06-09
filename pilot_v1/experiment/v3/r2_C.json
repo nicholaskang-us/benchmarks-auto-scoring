@@ -1,0 +1,87 @@
+[
+  {
+    "benchmark_number": 2,
+    "folder": "02_Russian_Doll_Bench_Infrastructure_Buildi",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Success is verified deterministically by the terminal server's status endpoint (online/total terminal counts); a terminal flips _online=True only when the model sends the correct decoded/keyed payload (e.g. MazeTerminal._handle_activate checks decoded == activation_phrase). Ground truth is fully computable and unambiguous."},
+      "2_construct_validity": {"level": 2, "justification": "Genuine agentic eval: run_agent_loop sends a system prompt and tools to the model, executes the model's tool calls against a live nested-terminal server, and scores how many terminals the model brings online. The claim (cross-run learning / mastering unknown nested terminals) is tightly operationalized; score is structurally driven by model actions, not internal data."},
+      "3_code_quality": {"level": 2, "justification": "Clean, modular package: @kbench.task decorators, separate envs/infrastructure/telemetry/terminal modules, robust tool dispatch with arg validation, retries on status, graceful RunResult error handling, and dual GenAI/OpenAI loops handling empty-message edge cases."},
+      "4_sample_size": {"level": 2, "justification": "run_adaptive_learning defines 10 progressively harder generators (T1 through nested T1|T2|T3|T4|T5 composites), each yielding multiple terminal tasks validated per iteration; the effective evaluation surface (validation terminals across generators) is well over 20."},
+      "5_metric_design": {"level": 2, "justification": "Beyond pass/fail online-count, the harness reports multiple distinct dimensions: terminal_activation_steps, iterations spent, token metrics, and a composite score that fines for iterations spent (efficiency) — capturing both capability and token/iteration efficiency."},
+      "6_problem_statement": {"level": 1, "justification": "The system.md prompt and task description clearly state the targeted capability (cross-run learning, progress retention, mastering nested-terminal activation efficiently), but the captured notebook markdown is thin and does not situate the task against existing benchmarks or a broader gap."},
+      "7_technical_documentation": {"level": 2, "justification": "Source package is extensively documented: per-terminal .md specs (role/commands/rules), docstrings on infrastructure and scoring, prompt files, and unit/trace tests; the notebook explains dataset import and environment setup. Methodology and scoring are reproducible from code."},
+      "8_capability_targeting": {"level": 2, "justification": "Targets a specific sub-capability (long-horizon agentic reasoning + cross-run knowledge persistence) with an explicit difficulty gradient (single -> deeply nested heterogeneous terminals) and persistent filesystem mechanism, allowing attribution of performance to the claimed skill."},
+      "9_item_diversity": {"level": 2, "justification": "Five distinct terminal types (Sys32, BitMixer, Cipher, Hash, Maze) combined via a structured generator ladder of increasing nesting depth and type-mixing, with per-terminal activation tracking — a clear taxonomy enabling a performance gradient."},
+      "10_model_coverage": {"level": 0, "justification": "Notebook runs a single kbench.llm per execution; only one model run is evidenced (claude-opus artifact), no cross-model comparison present in the captured material."}
+    },
+    "total_score": 8.5
+  },
+  {
+    "benchmark_number": 5,
+    "folder": "05_The_Time_Traveler_s_Dilemma_Empathy_Over",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Deterministic guards (word-count window, regex lexical bans, bracket-block extraction) are unambiguous, but the qualitative core uses a 4-criterion LLM-judge panel whose criteria are yes/no questions without anchored per-level examples, so the rubric covers ~4 dimensions but vaguely."},
+      "2_construct_validity": {"level": 1, "justification": "Headline eval genuinely calls the target model (llm.prompt) and scores its actual response via deterministic + judge checks. However the task claims 'empathy / epistemic exile / AGI metacognition' while most of the signal is constraint-following (300-400 word count, forbidden-token avoidance, bracket formatting) — a moderate confound conflating the claimed capability with instruction-following."},
+      "3_code_quality": {"level": 1, "justification": "Functional single-cell tasks with reasonable regex extraction and a senate-integrity guard, but minimal structure: a hard FATAL assert if exactly 4 judges aren't present, no normalization fallbacks, and substantial copy-paste duplication across the five notebooks."},
+      "4_sample_size": {"level": 0, "justification": "Each task notebook evaluates a single scenario (one prompt to the target model); even counting all five sibling notebooks the benchmark has ~5 items, far below the threshold for reliable conclusions."},
+      "5_metric_design": {"level": 2, "justification": "Computes multiple distinct dimensions: deterministic structural compliance (word count, lexical purity), and a multi-judge approval ratio across 4 separate judge models with a 75% threshold — distinct constraint-adherence vs. nuance dimensions."},
+      "6_problem_statement": {"level": 1, "justification": "Task names/descriptions specify the conceit (explain modern tech to a historical figure under lexical constraints, testing conceptual mapping) but provide no research motivation or comparison to existing evaluations."},
+      "7_technical_documentation": {"level": 1, "justification": "Inline comments label each stage (lexical guillotine, stone masons, the senate) and the prompt itself documents the protocol, but there is no dataset/schema documentation or markdown walkthrough of scoring edge cases."},
+      "8_capability_targeting": {"level": 1, "justification": "Targets a domain (cross-domain conceptual translation under constraints) but lacks experimental controls (no paired/control conditions), so failures cannot be cleanly attributed to the target capability vs. constraint-following or formatting compliance."},
+      "9_item_diversity": {"level": 1, "justification": "Natural variation across notebooks (different eras, figures, languages: Ge'ez/English/Spanish, different forbidden-token sets and word windows), but no structured difficulty taxonomy or sub-condition labeling within the scoring code."},
+      "10_model_coverage": {"level": 0, "justification": "The target model is a single kbench.llm per run (the four named keys are judges, not evaluated subjects); only one subject-model run is evidenced."}
+    },
+    "total_score": 4.5
+  },
+  {
+    "benchmark_number": 9,
+    "folder": "09_Adversarial_Cognitive_Profiling_ACP_Meta",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Every World-Swap item has a deterministically generated correct_answer and naive_answer; correctness uses normalized containment plus a multi-layer slop pipeline (keyword, numeric proximity, embedding, token-overlap) with a verbose-correct guard. Ground truth is fully computable and unambiguous."},
+      "2_construct_validity": {"level": 2, "justification": "Genuinely measures the model: _unified_infer calls llm.prompt(...) with a structured schema for all 600 items and scores actual responses. Construct is tightly isolated via scaffold-equalized Tier1 vs Tier2+ prompts (only world-rule context differs), paired naive/correct answers, and SDT meta-d' to separate metacognition from raw accuracy."},
+      "3_code_quality": {"level": 2, "justification": "Modular, well-commented, SDK-idiomatic: dataclass items, seeded determinism, parallel inference with _safe_call exception capture, protobuf sanitization, structured-output schema, fallback code extraction, and bootstrap CI computation."},
+      "4_sample_size": {"level": 2, "justification": "N=600 items (150 per tier x 4 tiers, balanced across 4 problem types), far exceeding 20 and enabling per-tier/per-type and SDT analysis."},
+      "5_metric_design": {"level": 2, "justification": "Many genuinely distinct dimensions: d'/meta-d'/M-ratio (SDT), ACE (asymmetric Brier), selective-prediction score, tool utility, ECE, confidence entropy, four failure-mode rates, inverse-scaling index, plus bootstrapped 95% CIs — with markdown justifying calibration and design."},
+      "6_problem_statement": {"level": 2, "justification": "Header clearly names the capability (metacognition / SDT metacognitive efficiency), the four task constructs, four failure modes, the primary metric, and the design rationale (inverse scaling, world-swap to suppress priors) — a specific, well-motivated statement."},
+      "7_technical_documentation": {"level": 2, "justification": "Sectioned markdown (World-Swap engine, slop detection, dataset generator, evaluation, prompts, aggregator), explicit confidence scale/bin definitions, scoring rules, and metric interpretation — fully reproducible."},
+      "8_capability_targeting": {"level": 2, "justification": "Probes a specific sub-capability (inhibitory control + calibrated metacognition under counterfactual rules) with explicit experimental controls: identity-rule Tier 1 baseline, scaffold-equalized prompts, paired naive vs correct, difficulty tiers, and a stated hypothesis (inverse-scaling/calibration)."},
+      "9_item_diversity": {"level": 2, "justification": "Items organized into a 4-type x 4-tier taxonomy with the notebook reporting per-tier accuracy/confidence, failure-mode breakdowns, and calibration bins — revealing where models fail, not just how often."},
+      "10_model_coverage": {"level": 0, "justification": "Run artifact shows a single subject model (claude-opus-4-7) and one execution; no cross-model comparison is present in the captured material."}
+    },
+    "total_score": 9.0
+  },
+  {
+    "benchmark_number": 12,
+    "folder": "12_TemporalBench_Validity_Windows_Beat_Deca",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Dataset carries expected answers, but the model-calling notebook uses fragile scoring (exact/substring/0.7 token-overlap), and the headline-named v4/v2 tasks compare predicted to expected_value or merely assert predicted is not None, which is verified against the authors' own store rather than model output."},
+      "2_construct_validity": {"level": 0, "justification": "Severe failure matching the rubric's Example (a): the signature published tasks (temporalbenchv4 and temporalbench-v2-pccc, both saved as .task.json) never use the llm parameter — they build an internal TemporalAttentionStore, call store.get(), and assert predicted is not None/== expected, printing 942/942, 734/734, 324/324 'correct'. The central thesis ('validity windows beat decay') is demonstrated by comparing the authors' own Python stores, not by measuring a model."},
+      "3_code_quality": {"level": 1, "justification": "Code runs and is somewhat organized (load/build/replay helpers, dataclass Fact), but suffers heavy duplication across five notebooks, fragile field-guessing (extract_day tries many keys), bare except pass swallowing errors in the model loop, and large commented-out task blocks."},
+      "4_sample_size": {"level": 2, "justification": "Datasets are large (e.g. 2000 questions, 1111-5480 facts per version/seed) and tasks iterate hundreds of items per family, well above 20."},
+      "5_metric_design": {"level": 0, "justification": "Each task reports only a single correct/total pass rate with no second performance dimension and no justification; the model-calling notebook's substring-overlap accuracy is a single, weakly-justified metric."},
+      "6_problem_statement": {"level": 1, "justification": "The eval notebook header names the capability (temporal reasoning: validity windows vs decay) and gives some motivation/findings, but the framing largely describes a data-structure comparison and does not clearly position a model-measurement gap."},
+      "7_technical_documentation": {"level": 1, "justification": "Partial: dataset structure and version/seed layout are described and code is commented, but scoring rules are inconsistent across notebooks, the store-vs-model distinction is undocumented, and column schemas/edge cases are not specified."},
+      "8_capability_targeting": {"level": 1, "justification": "Targets a coherent domain (point-in-time temporal retrieval with traps/overlaps/decay) and includes adversarial conditions (future-distractor injection), but the primary saved tasks test a retrieval store rather than isolating a model capability, weakening attribution."},
+      "9_item_diversity": {"level": 2, "justification": "Items are explicitly organized into labeled task families (AsOfQA, ChangeDetection, CausalQuery, CurrentQuery, OverlapQuery, PastQueryTrap, DecayTrap) across version tiers (v1-v4), with per-family results reported."},
+      "10_model_coverage": {"level": 0, "justification": "Run artifacts show a single model per execution (gemini-2.5-flash / glm-5 in separate runs); no in-notebook multi-model comparison is evidenced for a given task."}
+    },
+    "total_score": 4.5
+  },
+  {
+    "benchmark_number": 15,
+    "folder": "15_Constraint_Adaptation_Benchmark_CAB",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Fully verifiable: code-golf executes model code against hidden asserts, regex-golf checks re.fullmatch against MATCH/DO_NOT_MATCH lists, and EGAT computes a deterministic embedding center-of-mass distance — all objective, code-defined ground truth."},
+      "2_construct_validity": {"level": 2, "justification": "All three tasks genuinely measure the model via multi-turn llm.prompt loops and score the model's actual outputs (compressed code/regex/token sequences). Implementations isolate the claimed capability (constraint-satisfying compression / embedding-geometry navigation) with feedback-driven trials."},
+      "3_code_quality": {"level": 2, "justification": "Clean and robust: @kbench.task, per-session chat contexts, regex option extraction, sandboxed exec with concise traceback feedback, system-prompt-rejection fallback (baked-prompt mode), API-error retry with backoff, whitespace-token normalization to equalize tokenizer families, and order-preserving dedup for determinism."},
+      "4_sample_size": {"level": 1, "justification": "Each task has 5 sessions/prompts run over 10 trials each (50 model calls per task); the count of distinct evaluation items (5 per task) sits in the 10-20-equivalent low range rather than >20 independent items."},
+      "5_metric_design": {"level": 2, "justification": "Uses a justified fractional-reduction/improvement metric per task plus distinct sub-dimensions (validity pass/fail, character count, per-trial best, -1.0 no-solution penalty, D_initial vs D_final geometry), with markdown explaining scoring and tradeoffs."},
+      "6_problem_statement": {"level": 1, "justification": "Each notebook clearly names its capability (syntactic compression, pattern/constraint reasoning, embedding-geometry awareness) with scoring rationale, but does not connect to a broader research question or identify the gap relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 2, "justification": "Strong: header tables list tasks/baselines, markdown explains scoring formulas and config flags, and detailed inline comments document parsing, tokenizer handling, and the bypass-tag/reasoning-strip protocol — reproducible end to end."},
+      "8_capability_targeting": {"level": 2, "justification": "Each task probes a specific, well-defined sub-capability with a clear hypothesis and built-in gradient: golf tasks span difficulty/baseline sizes, regex sessions escalate constraint complexity, and EGAT prompts grow in token-set size/adversarial composition with a measurable convergence delta."},
+      "9_item_diversity": {"level": 2, "justification": "Items are explicitly tiered/labeled by difficulty (5 named tasks/sessions/prompts of increasing complexity per notebook) and per-item scores are reported individually, exposing a performance gradient."},
+      "10_model_coverage": {"level": 0, "justification": "Each notebook runs a single kbench.llm per execution; only one model run is evidenced, with no cross-model comparison in the captured outputs."}
+    },
+    "total_score": 8.0
+  }
+]
