@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rubric Iterator — benchmarks auto-scoring</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a2f3a;
+    --fg:#e6e9ef; --muted:#9aa3b2; --accent:#6ea8fe; --good:#3fb950; --bad:#f85149; --warn:#d29922;
+    --top:#1f6feb; --mid:#8957e5; --bottom:#6e7681;
+    --l0:#f85149; --l1:#d29922; --l2:#3fb950;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         background:var(--bg); color:var(--fg); }
+  header { padding:14px 20px; border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:center;
+           flex-wrap:wrap; position:sticky; top:0; background:var(--bg); z-index:10; }
+  header h1 { font-size:16px; margin:0; font-weight:600; }
+  header .gen { color:var(--muted); font-size:12px; }
+  select, button { background:var(--panel2); color:var(--fg); border:1px solid var(--line);
+                   border-radius:6px; padding:6px 10px; font-size:13px; cursor:pointer; }
+  button:hover, select:hover { border-color:var(--accent); }
+  .tabs { display:flex; gap:6px; }
+  .tabs button.active { background:var(--accent); color:#0b0d12; border-color:var(--accent); font-weight:600; }
+  main { padding:20px; max-width:1200px; margin:0 auto; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:18px; }
+  .panel h2 { margin:0 0 12px; font-size:14px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .stat-row { display:flex; gap:14px; flex-wrap:wrap; }
+  .stat { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:10px 14px; min-width:120px; }
+  .stat .k { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+  .stat .v { font-size:20px; font-weight:600; margin-top:2px; }
+  .stat .v.good { color:var(--good); } .stat .v.bad { color:var(--bad); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; cursor:pointer; user-select:none; white-space:nowrap; }
+  th:hover { color:var(--fg); }
+  tbody tr.bench { cursor:pointer; }
+  tbody tr.bench:hover { background:var(--panel2); }
+  .tier { font-size:11px; padding:2px 7px; border-radius:20px; color:#fff; }
+  .tier.top{background:var(--top);} .tier.mid{background:var(--mid);} .tier.bottom{background:var(--bottom);}
+  .num { font-variant-numeric:tabular-nums; }
+  .detail td { background:#12151c; padding:0; }
+  .detail-inner { padding:14px 18px; }
+  .crit { border-top:1px solid var(--line); padding:10px 0; }
+  .crit:first-child { border-top:none; }
+  .crit .head { display:flex; align-items:center; gap:10px; }
+  .crit .cname { font-weight:600; }
+  .cat-tag { font-size:10px; color:var(--muted); border:1px solid var(--line); border-radius:4px; padding:1px 5px; }
+  .lvls { display:flex; gap:6px; margin-left:auto; }
+  .lvl { width:26px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:5px;
+         font-size:12px; font-weight:600; color:#0b0d12; }
+  .lvl.l0{background:var(--l0);} .lvl.l1{background:var(--l1);} .lvl.l2{background:var(--l2);}
+  .just { margin-top:8px; display:grid; gap:8px; }
+  .just .row { background:var(--panel2); border:1px solid var(--line); border-radius:6px; padding:8px 10px; }
+  .just .row .meta { color:var(--muted); font-size:11px; margin-bottom:3px; }
+  .badge { font-size:11px; padding:1px 6px; border-radius:5px; border:1px solid var(--line); color:var(--muted); }
+  .ok{color:var(--good);} .no{color:var(--bad);}
+  pre { background:#0b0d12; border:1px solid var(--line); border-radius:8px; padding:12px; overflow:auto;
+        font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; white-space:pre-wrap; }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .copybox { position:relative; }
+  .copybox button { position:absolute; top:8px; right:8px; }
+  .rubric-md { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:4px 20px; max-height:600px; overflow:auto; }
+  .rubric-md h1{font-size:20px;} .rubric-md h2{font-size:16px;text-transform:none;letter-spacing:0;color:var(--fg);}
+  .rubric-md table{font-size:12px;} .rubric-md code{background:#0b0d12;padding:1px 4px;border-radius:3px;}
+  .muted { color:var(--muted); }
+  .delta-up{color:var(--good);} .delta-down{color:var(--bad);}
+  ol.steps{margin:0;padding-left:20px;} ol.steps li{margin:8px 0;}
+  .hide{display:none;}
+  a{color:var(--accent);}
+</style>
+</head>
+<body>
+<header>
+  <h1>Rubric Iterator</h1>
+  <label class="muted">version
+    <select id="versionSel"></select>
+  </label>
+  <label class="muted">compare vs
+    <select id="compareSel"></select>
+  </label>
+  <div class="tabs" id="tabs">
+    <button data-tab="results" class="active">Results</button>
+    <button data-tab="rubric">Rubric</button>
+    <button data-tab="newrun">New run</button>
+  </div>
+  <span class="gen" id="gen"></span>
+</header>
+<main id="app">Loading…</main>
+
+<script>
+const $ = (s, r=document) => r.querySelector(s);
+const el = (t, a={}, kids=[]) => {
+  const n = document.createElement(t);
+  for (const [k,v] of Object.entries(a)) {
+    if (k==="class") n.className=v; else if (k==="html") n.innerHTML=v; else if (k==="text") n.textContent=v;
+    else n.setAttribute(k,v);
+  }
+  for (const c of [].concat(kids)) n.append(c);
+  return n;
+};
+const fmt = (x, d=2) => (x==null||Number.isNaN(x)) ? "–" : Number(x).toFixed(d);
+
+let M = null, state = { version:null, compare:"", tab:"results", sort:{key:"human", dir:-1} };
+
+async function load() {
+  M = await (await fetch("manifest.json", {cache:"no-store"})).json();
+  $("#gen").textContent = "built " + (M.generated||"").replace("T"," ");
+  const vs = M.versions.map(v=>v.id);
+  state.version = vs[0];
+  fill($("#versionSel"), vs);
+  fill($("#compareSel"), ["(none)"].concat(vs), true);
+  $("#versionSel").value = state.version;
+  $("#versionSel").onchange = e => { state.version = e.target.value; render(); };
+  $("#compareSel").onchange = e => { state.compare = e.target.value==="(none)"?"":e.target.value; render(); };
+  $("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => {
+    state.tab = b.dataset.tab;
+    $("#tabs").querySelectorAll("button").forEach(x=>x.classList.toggle("active", x===b));
+    render();
+  });
+  render();
+}
+function fill(sel, opts){ sel.innerHTML=""; opts.forEach(o=>sel.append(el("option",{value:o,text:o}))); }
+const ver = id => M.versions.find(v=>v.id===id);
+
+function render(){
+  const app = $("#app"); app.innerHTML="";
+  const v = ver(state.version);
+  if (state.tab==="results") renderResults(app, v);
+  else if (state.tab==="rubric") renderRubric(app, v);
+  else renderNewRun(app, v);
+}
+
+/* ---------- Results ---------- */
+function renderResults(app, v){
+  const cmp = state.compare ? ver(state.compare) : null;
+  const agg = v.aggregate, sep = agg.tier_separation;
+  const stats = el("div",{class:"panel"},[ el("h2",{text:`Aggregate — ${v.id}`+(cmp?` vs ${cmp.id}`:"")}) ]);
+  const row = el("div",{class:"stat-row"});
+  const cAgg = cmp?cmp.aggregate:null;
+  const stat = (k,val,delta,goodHigh=true) => {
+    const s = el("div",{class:"stat"},[ el("div",{class:"k",text:k}), el("div",{class:"v",text:val}) ]);
+    if (delta!=null && !Number.isNaN(delta)) {
+      const up = delta>0; const good = goodHigh?up:!up;
+      s.append(el("div",{class:"badge "+(good?"ok":"no"), text:(up?"▲ +":"▼ ")+fmt(delta)+" vs "+cmp.id}));
+    }
+    return s;
+  };
+  row.append(stat("Spearman ρ", fmt(agg.spearman,3), cAgg?agg.spearman-cAgg.spearman:null, true));
+  row.append(stat("Judge noise", fmt(agg.judge_noise,3), cAgg?agg.judge_noise-cAgg.judge_noise:null, false));
+  if (sep.gap_top_mid!=null){
+    row.append(stat("Gap top→mid", fmt(sep.gap_top_mid), cAgg&&cAgg.tier_separation.gap_top_mid!=null?sep.gap_top_mid-cAgg.tier_separation.gap_top_mid:null, true));
+    row.append(stat("Gap mid→bot", fmt(sep.gap_mid_bottom), cAgg&&cAgg.tier_separation.gap_mid_bottom!=null?sep.gap_mid_bottom-cAgg.tier_separation.gap_mid_bottom:null, true));
+  }
+  row.append(stat("Clean tiers", (sep.clean_top_mid?"top✓":"top✗")+" "+(sep.clean_mid_bottom?"bot✓":"bot✗")));
+  stats.append(row);
+
+  // tier means
+  if (sep.tiers){
+    const tr = el("div",{class:"stat-row",style:"margin-top:12px"});
+    ["top","mid","bottom"].forEach(t=>{
+      const x=sep.tiers[t]; if(!x) return;
+      tr.append(el("div",{class:"stat"},[ el("div",{class:"k",html:`<span class="tier ${t}">${t}</span>`}),
+        el("div",{class:"v num",text:fmt(x.mean)}), el("div",{class:"muted",text:`[${fmt(x.min)}, ${fmt(x.max)}] n=${x.n}`}) ]));
+    });
+    stats.append(tr);
+  }
+  app.append(stats);
+
+  // per-criterion discrimination
+  const pc = el("div",{class:"panel"},[ el("h2",{text:"Per-criterion discrimination (mean level + variance across benchmarks)"}) ]);
+  const ct = el("table"); ct.append(el("thead",{},el("tr",{},[
+    el("th",{text:"criterion"}), el("th",{text:"cat"}), el("th",{text:"mean"}), el("th",{text:"variance"})])));
+  const ctb = el("tbody");
+  const cmpCrit = cAgg ? Object.fromEntries(cAgg.per_criterion.map(c=>[c.key,c])) : null;
+  agg.per_criterion.forEach(c=>{
+    const meta = M.criteria.find(m=>m.key===c.key);
+    let varCell = fmt(c.var,3);
+    if (cmpCrit){ const d=c.var-cmpCrit[c.key].var; varCell += `  (${d>=0?"+":""}${fmt(d,3)})`; }
+    ctb.append(el("tr",{},[ el("td",{text:meta.label}), el("td",{},el("span",{class:"cat-tag",text:meta.category})),
+      el("td",{class:"num",text:fmt(c.mean)}), el("td",{class:"num",text:varCell}) ]));
+  });
+  ct.append(ctb); pc.append(ct); app.append(pc);
+
+  // per-benchmark table
+  const bp = el("div",{class:"panel"});
+  bp.append(el("h2",{text:`Benchmarks (${v.n_benchmarks}) — click a row to inspect justifications`}));
+  const t = el("table"); const cmpB = cmp?Object.fromEntries(cmp.benchmarks.map(b=>[b.n,b])):null;
+  const cols = [["n","#"],["human","human%"],["tier","tier"],["mean_total","score"],["std_total","±std"],["title","title"]];
+  if (cmpB) cols.splice(4,0,["delta","Δ vs "+cmp.id]);
+  const thead = el("tr");
+  cols.forEach(([k,lbl])=>{
+    const th=el("th",{text:lbl});
+    th.onclick=()=>{ state.sort = {key:k, dir: state.sort.key===k? -state.sort.dir : (k==="title"?1:-1)}; render(); };
+    if (state.sort.key===k) th.textContent = lbl+(state.sort.dir<0?" ↓":" ↑");
+    thead.append(th);
+  });
+  t.append(el("thead",{},thead));
+  const tb = el("tbody");
+  const rows = v.benchmarks.slice().map(b=>{
+    const o = Object.assign({}, b);
+    if (cmpB && cmpB[b.n]) o.delta = b.mean_total - cmpB[b.n].mean_total;
+    return o;
+  });
+  const sk = state.sort.key, dir = state.sort.dir;
+  rows.sort((a,b)=>{ let x=a[sk], y=b[sk]; if(x==null)x=-1e9; if(y==null)y=-1e9;
+    return (x<y?-1:x>y?1:0)*dir; });
+  rows.forEach(b=>{
+    const tr = el("tr",{class:"bench"});
+    const cells = {
+      n:b.n, human:b.human==null?"–":fmt(b.human,1), tier:b.tier, mean_total:fmt(b.mean_total),
+      std_total:fmt(b.std_total), title:b.title,
+      delta: b.delta==null?"–":(b.delta>0?"+":"")+fmt(b.delta),
+    };
+    cols.forEach(([k])=>{
+      if (k==="tier") tr.append(el("td",{},el("span",{class:"tier "+(b.tier||""),text:b.tier||"–"})));
+      else if (k==="delta"){ const c=el("td",{class:"num "+(b.delta>0?"delta-up":b.delta<0?"delta-down":""),text:cells[k]}); tr.append(c); }
+      else if (k==="title") tr.append(el("td",{text:cells[k]}));
+      else tr.append(el("td",{class:"num",text:cells[k]}));
+    });
+    const detail = el("tr",{class:"detail hide"});
+    const dcell = el("td",{colspan:String(cols.length)});
+    detail.append(dcell);
+    tr.onclick=()=>{ const open=detail.classList.toggle("hide")===false;
+      if(open && !dcell.dataset.built){ dcell.append(benchDetail(b, cmpB?cmpB[b.n]:null)); dcell.dataset.built="1"; } };
+    tb.append(tr); tb.append(detail);
+  });
+  t.append(tb); bp.append(t); app.append(bp);
+}
+
+function benchDetail(b, cmpb){
+  const wrap = el("div",{class:"detail-inner"});
+  M.criteria.forEach(meta=>{
+    const lvls = b.rollouts.map(r=>r.criteria[meta.key].level);
+    const c = el("div",{class:"crit"});
+    const head = el("div",{class:"head"},[
+      el("span",{class:"cname",text:meta.label}),
+      el("span",{class:"cat-tag",text:meta.category+" · "+meta.category_label}),
+    ]);
+    const lv = el("div",{class:"lvls"});
+    b.rollouts.forEach((r,i)=> lv.append(el("div",{class:"lvl l"+r.criteria[meta.key].level,
+      title:r.file, text:String(r.criteria[meta.key].level)})));
+    if (cmpb){
+      const a = lvls.reduce((s,x)=>s+x,0)/lvls.length;
+      const bl = cmpb.rollouts.map(r=>r.criteria[meta.key].level); const bb = bl.reduce((s,x)=>s+x,0)/bl.length;
+      const d = a-bb; lv.append(el("span",{class:"badge "+(d>0?"ok":d<0?"no":""),
+        text:(d>0?"+":"")+fmt(d,2)+" vs prev"}));
+    }
+    head.append(lv); c.append(head);
+    const just = el("div",{class:"just"});
+    b.rollouts.forEach(r=>{
+      just.append(el("div",{class:"row"},[
+        el("div",{class:"meta",html:`${r.file} · <span class="lvl l${r.criteria[meta.key].level}" style="display:inline-flex;width:auto;padding:0 6px;height:16px;">L${r.criteria[meta.key].level}</span>`}),
+        el("div",{text:r.criteria[meta.key].justification||"(no justification)"}),
+      ]));
+    });
+    c.append(just); wrap.append(c);
+  });
+  return wrap;
+}
+
+/* ---------- Rubric ---------- */
+async function renderRubric(app, v){
+  const p = el("div",{class:"panel"});
+  p.append(el("h2",{text:`Rubric — ${v.rubric_path||"(none)"}`}));
+  if (v.prompt_path) p.append(el("div",{class:"muted",html:`scorer prompt: <code>${v.prompt_path}</code>`}));
+  const box = el("div",{class:"rubric-md",text:"Loading…"});
+  p.append(box); app.append(p);
+  if (!v.rubric_path){ box.textContent="No rubric file mapped for this version."; return; }
+  try {
+    const md = await (await fetch("../"+v.rubric_path, {cache:"no-store"})).text();
+    box.innerHTML = marked.parse(md);
+  } catch(e){ box.textContent = "Could not load ../"+v.rubric_path+" — when served over http it will load fine."; }
+}
+
+/* ---------- New run ---------- */
+function copyBox(text){
+  const b = el("div",{class:"copybox"});
+  const btn = el("button",{text:"Copy"});
+  btn.onclick=()=>{ navigator.clipboard.writeText(text).then(()=>{btn.textContent="Copied!"; setTimeout(()=>btn.textContent="Copy",1200);}); };
+  b.append(btn, el("pre",{text:text})); return b;
+}
+function renderNewRun(app, v){
+  // next version id suggestion
+  const ids = M.versions.map(x=>x.id);
+  const groups = {
+    A: [4,7,10,13], B:[1,6,8,11,14], C:[2,5,9,12,15],
+  };
+  const gLines = Object.entries(groups).map(([g,ns])=>{
+    const titles = ns.map(n=>{ const gt=M.ground_truth[String(n)]; return `#${n} ${gt?gt.title:""}`; });
+    return `  Group ${g}: ${titles.join("\n           ")}`;
+  }).join("\n");
+
+  const p = el("div",{class:"panel"});
+  p.append(el("h2",{text:"Kick off a new run"}));
+  p.append(el("p",{class:"muted",html:"Runs are launched manually in Claude Code (no backend). Follow these steps, then refresh this page."}));
+  p.append(el("ol",{class:"steps"},[
+    el("li",{html:`<b>Change the rubric.</b> Copy the current rubric to the next version and edit it:`}),
+    copyBox(`cd pilot_v1\ncp ${v.rubric_path} total_rubric_vNEXT.md\ncp experiment/prompts/${(v.prompt_path||"").split("/").pop()} experiment/prompts/scorer_prompt_vNEXT.md\nmkdir -p experiment/vNEXT\n# edit total_rubric_vNEXT.md and scorer_prompt_vNEXT.md, then point the prompt at the new rubric path`),
+    el("li",{html:`<b>Launch 3 blind judges in Claude Code</b>, one per group. Paste this to your agent (it spins up 3 subagents A/B/C, each reads the rubric + source notebooks and writes its JSON):`}),
+    copyBox(`Run the rubric backtest for version vNEXT.\n\nSpin up 3 blind research subagents (A, B, C). Give each:\n  - the scorer prompt at pilot_v1/experiment/prompts/scorer_prompt_vNEXT.md (read in full)\n  - the rubric at pilot_v1/total_rubric_vNEXT.md (read in full)\n  - the source_material notebooks for its assigned benchmarks only\n\nBenchmark assignments:\n${gLines}\n\nEach subagent scores its benchmarks BLIND (no human ranks), all 10 criteria at level 0/1/2 with a 1-2 sentence justification each, and writes a JSON array to:\n  pilot_v1/experiment/vNEXT/r{ROLLOUT}_{GROUP}.json\nDo 3 rollouts (ROLLOUT = 1,2,3) per group, so 9 files total: r1_A r1_B r1_C r2_A ... r3_C.\nUse the STRICT output schema in the scorer prompt.`),
+    el("li",{html:`<b>Rebuild the manifest and publish.</b>`}),
+    copyBox(`cd pilot_v1\npython3 build_manifest.py\ngit add viewer/manifest.json experiment/vNEXT total_rubric_vNEXT.md experiment/prompts/scorer_prompt_vNEXT.md\ngit commit -m "rubric vNEXT backtest"\ngit push`),
+    el("li",{html:`Refresh this page — <code>vNEXT</code> appears in the version dropdown. Set <b>compare vs</b> to <code>${v.id}</code> to see deltas.`}),
+  ]));
+  app.append(p);
+
+  const p2 = el("div",{class:"panel"});
+  p2.append(el("h2",{text:"This version's exact run command"}));
+  p2.append(el("p",{class:"muted",html:`Reproduce <b>${v.id}</b> as-is (rubric: <code>${v.rubric_path}</code>, prompt: <code>${v.prompt_path}</code>, files: ${v.run_files.join(", ")}).`}));
+  p2.append(copyBox(`Run the rubric backtest for version ${v.id}.\nScorer prompt: pilot_v1/${v.prompt_path}\nRubric: pilot_v1/${v.rubric_path}\nWrite 3 rollouts x groups A/B/C to pilot_v1/experiment/${v.id}/r{1,2,3}_{A,B,C}.json\nBenchmark assignments:\n${gLines}`));
+  app.append(p2);
+}
+
+load().catch(e=>{ $("#app").innerHTML = '<div class="panel">Failed to load manifest.json — run <code>python3 build_manifest.py</code> first, then serve this folder over http (see README).</div>'; console.error(e); });
+</script>
+</body>
+</html>
