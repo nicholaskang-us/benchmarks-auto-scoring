@@ -79,12 +79,13 @@ This criterion checks whether the task's implementation (prompts, evaluation log
 *   **Level 1 (0.5 points)**: The task genuinely prompts and scores a model, but the evaluation design contains minor construct confounding factors (e.g., a reasoning task where failures are highly sensitive to superficial prompt formatting constraints, making it a format-following task rather than a reasoning task).
 *   **Level 2 (1.0 point)**: The evaluation setup is clean and tightly aligned. No major construct confounders are present.
 
-### Criterion 3: Code Quality (📓 Notebook)
-*Is the notebook code modular, clean, and robust?*
+### Criterion 3: Code Quality & Grader Reliability (📓 Notebook)
+*Is the notebook code modular, clean, and robust? Does it ensure grader reliability?*
 
-*   **Level 0 (0.0 points)**: Code is fragile, copy-pasted, hard to read, or fails to run. No exception handling or formatting normalization.
-*   **Level 1 (0.5 points)**: Code is functional and runs end-to-end, but has anti-patterns (shadowed names, massive single-cell execution) or lacks error-handling for API timeouts or malformed LLM responses.
-*   **Level 2 (1.0 point)**: Code is modular, utilizes standard platform SDK decorators properly, implements custom classes/dataclasses, and robustly handles API failure rates or parse errors.
+*   **Level 0 (0.0 points)**: Code is fragile, copy-pasted, or fails to run. No exception handling. Or, if using an LLM-based grader, it fails to specify determinism settings (e.g., temperature is left default/set > 0.0, or no seed is set).
+*   **Level 1 (0.5 points)**: Code is functional and runs end-to-end, but has anti-patterns or lacks error-handling for timeouts/malformed LLM replies. For LLM-based graders, it sets temperature=0.0 but runs the evaluator only once, without any consistency checks.
+*   **Level 2 (1.0 point)**: Code is modular, utilizes standard platform SDK decorators properly, and robustly handles API errors. For LLM-based graders, it enforces absolute determinism (temperature=0.0, fixed seeds) AND implements a consistency mechanism (e.g., running the grader 3 times and using majority voting or checking scoring variance).
+
 
 ### Criterion 4: Sample Size Adequacy (📓 Notebook)
 *Does the task evaluate models on a sufficient number of test items?*

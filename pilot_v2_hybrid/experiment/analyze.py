@@ -12,7 +12,8 @@ gt = {int(k): v for k, v in json.load(open(os.path.join(EXP, "ground_truth.json"
 
 CRITS = ["1_answer_correctness","2_construct_validity","3_code_quality","4_sample_size",
          "5_metric_design","6_problem_statement","7_technical_documentation",
-         "8_capability_targeting","9_item_diversity","10_model_coverage"]
+         "8_capability_targeting","9_item_diversity","10_empirical_discrimination",
+         "11_contamination_resistance"]
 
 # Collect: per benchmark -> list of (total, criteria-levels-dict) across rollouts
 runs = {}  # bench_num -> list of dicts {total, levels}

@@ -21,6 +21,8 @@ All notable changes, proposals, suggestions, and design decisions in this sessio
     *   *Description:* Python script to compute independent **Pre-Run** (static construction & documentation) and **Post-Run** (empirical results & contamination) scores, each normalized out of 10.0 points.
 *   **[analyze_two_tier.py](file:///usr/local/google/home/rmatthew/projects/benchmarks-auto-scoring/pilot_v1/experiment/analyze_two_tier.py)**
     *   *Description:* Python script to run side-by-side comparative analysis on the Pre-Run vs. Post-Run scored rollouts.
+*   **[design_rationale.md](file:///usr/local/google/home/rmatthew/projects/benchmarks-auto-scoring/pilot_v1/design_rationale.md)**
+    *   *Description:* Comprehensive design rationale document explaining the mathematical logic, framework weightings, and pilot outcomes of Rubric v4.
 
 ### Modified Files / Folders
 *   **[v3_empirical/](file:///usr/local/google/home/rmatthew/projects/benchmarks-auto-scoring/pilot_v1/experiment/v3_empirical/)**
@@ -59,6 +61,10 @@ All notable changes, proposals, suggestions, and design decisions in this sessio
     *   **Top-Mid Gap Correction:** Pre-Run scoring resulted in a negative Top-Mid Gap of **-0.02** (unable to separate top-tier from mid-tier). Post-Run scoring corrected this to **+0.19**, proving that post-run empirical execution is necessary to properly isolate top-tier benchmarks.
     *   **Mid-Bottom Gap:** Widely separated in both phases at **+2.80** (Pre-Run) and **+2.66** (Post-Run).
     *   **Judge Noise:** Fell from **0.4435** (Pre-Run) to **0.4255** (Post-Run).
+
+#### Phase 4: Final Documentation & Repository Check-in
+*   Compiled the **Design Rationale** document ([design_rationale.md](file:///usr/local/google/home/rmatthew/projects/benchmarks-auto-scoring/pilot_v1/design_rationale.md)) detailing the theoretical foundations, category weights, mathematical scaling, and empirical outcomes of the Rubric v4 pilot.
+*   Staged and committed all newly added implementation scripts, mock datasets, results folders, and design documentation to the project feature branch in Git.
 
 ---
 
