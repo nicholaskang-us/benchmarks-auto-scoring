@@ -1,0 +1,813 @@
+{
+  "1": {
+    "distinct_models_completed": 31,
+    "distinct_models_any": 31,
+    "level": 2,
+    "models": [
+      "claude-fable-5-default",
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-6-default",
+      "claude-opus-4-8-default",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-mini-2026-03-17",
+      "gpt-5.4-nano-2026-03-17",
+      "gpt-5.5-2026-04-23",
+      "gpt-oss-120b",
+      "gpt-oss-20b",
+      "grok-4.3",
+      "o3-2025-04-16",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "professorsethi/t01-msv-delegate-game",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t02-msv-declared-probe",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t03-msv-second-chance",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t04-msv-confidence-entropy",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t05-msv-teammate-delegate",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t06-msv-behavioral-er",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t07-msv-behavioral-ci",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t08-msv-behavioral-em",
+        "completed": 30,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t09-msv-behavioral-pi",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t10-msv-dpp-sequence",
+        "completed": 31,
+        "total": 31
+      },
+      {
+        "task": "professorsethi/t11-msv-mc-binary-pairs",
+        "completed": 31,
+        "total": 31
+      }
+    ]
+  },
+  "2": {
+    "distinct_models_completed": 15,
+    "distinct_models_any": 22,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-sonnet-4-6-default",
+      "deepseek-v3.2",
+      "gemini-2.5-flash",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-mini-2026-03-17",
+      "gpt-5.5-2026-04-23",
+      "gpt-oss-120b"
+    ],
+    "per_task": [
+      {
+        "task": "andgein/adaptive-learning",
+        "completed": 15,
+        "total": 22
+      }
+    ]
+  },
+  "3": {
+    "distinct_models_completed": 30,
+    "distinct_models_any": 36,
+    "level": 2,
+    "models": [
+      "claude-fable-5-default",
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-opus-4-8-default",
+      "claude-sonnet-4-20250514",
+      "claude-sonnet-4-5-20250929",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemma-3-12b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.5-2026-04-23",
+      "gpt-oss-120b",
+      "grok-4.3",
+      "o3-2025-04-16",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "shankhasuvromullick/riac-bench-noise",
+        "completed": 26,
+        "total": 30
+      },
+      {
+        "task": "shankhasuvromullick/riac-bench-number-repetition",
+        "completed": 29,
+        "total": 31
+      },
+      {
+        "task": "shankhasuvromullick/riac-bench-symbol-repetition",
+        "completed": 28,
+        "total": 30
+      },
+      {
+        "task": "shankhasuvromullick/riac-bench-word-repetition",
+        "completed": 28,
+        "total": 36
+      }
+    ]
+  },
+  "4": {
+    "distinct_models_completed": 15,
+    "distinct_models_any": 17,
+    "level": 2,
+    "models": [
+      "claude-fable-5-default",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-opus-4-8-default",
+      "claude-sonnet-4-6-default",
+      "deepseek-v3.2",
+      "gemini-2.5-flash",
+      "gemini-3-flash-preview",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemma-4-31b-it",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.5-2026-04-23",
+      "grok-4.3",
+      "o3-2025-04-16"
+    ],
+    "per_task": [
+      {
+        "task": "honganzhu/beer-game-baseline",
+        "completed": 15,
+        "total": 17
+      },
+      {
+        "task": "honganzhu/beer-game-prompt",
+        "completed": 15,
+        "total": 17
+      }
+    ]
+  },
+  "5": {
+    "distinct_models_completed": 40,
+    "distinct_models_any": 40,
+    "level": 2,
+    "models": [
+      "claude-fable-5-default",
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-opus-4-8-default",
+      "claude-sonnet-4-20250514",
+      "claude-sonnet-4-5-20250929",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-mini-2026-03-17",
+      "gpt-5.4-nano-2026-03-17",
+      "gpt-5.5-2026-04-23",
+      "gpt-oss-120b",
+      "gpt-oss-20b",
+      "grok-4.3",
+      "o3-2025-04-16",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "tiffafoster/empress-taytu-cyberwarfare-1896",
+        "completed": 39,
+        "total": 40
+      },
+      {
+        "task": "tiffafoster/senate-agi-aksum-350ad-english",
+        "completed": 40,
+        "total": 40
+      },
+      {
+        "task": "tiffafoster/senate-agi-aksum-350ad-geez",
+        "completed": 40,
+        "total": 40
+      },
+      {
+        "task": "tiffafoster/senate-algorithm-bolivar-1826ad-english",
+        "completed": 40,
+        "total": 40
+      },
+      {
+        "task": "tiffafoster/senate-algorithm-bolivar-1826ad-spanish",
+        "completed": 40,
+        "total": 40
+      }
+    ]
+  },
+  "6": {
+    "distinct_models_completed": 6,
+    "distinct_models_any": 6,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-sonnet-4-6-default",
+      "deepseek-v3.2",
+      "gemini-3-flash-preview",
+      "gemma-3-4b-it",
+      "gpt-5.4-mini-2026-03-17"
+    ],
+    "per_task": [
+      {
+        "task": "shivaurora/t1a-ittia-cs-congruent",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/t1b-ittia-cs-incongruent",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/t1c-ittia-cs-ceiling",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/t2a-ittia-sw-non-switch",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/t2b-ittia-sw-post-switch",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/ittia-sw-interleaved",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/ittia-stress-rule-a",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/ittia-stress-rule-b",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "shivaurora/t3c-ittia-stress-ceiling",
+        "completed": 6,
+        "total": 6
+      }
+    ]
+  },
+  "7": {
+    "distinct_models_completed": 7,
+    "distinct_models_any": 7,
+    "level": 2,
+    "models": [
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview"
+    ],
+    "per_task": [
+      {
+        "task": "patrickquinn/animalai-task",
+        "completed": 6,
+        "total": 7
+      },
+      {
+        "task": "patrickquinn/animalai-test-task",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "patrickquinn/animalai-physics-task-control",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "patrickquinn/animalai-physics-task-test",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "patrickquinn/animalai-vision-task-control",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "patrickquinn/animalai-vision-task-test",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "benaslater/embodied-inhibitory-control-text-only-control",
+        "completed": 7,
+        "total": 7
+      },
+      {
+        "task": "benaslater/embodied-inhibitory-control-text-only",
+        "completed": 7,
+        "total": 7
+      }
+    ]
+  },
+  "8": {
+    "distinct_models_completed": 1,
+    "distinct_models_any": 1,
+    "level": 0,
+    "models": [
+      "gemini-3-flash-preview"
+    ],
+    "per_task": [
+      {
+        "task": "tobi2x/subtle-framing-eval",
+        "completed": 1,
+        "total": 1
+      }
+    ]
+  },
+  "9": {
+    "distinct_models_completed": 8,
+    "distinct_models_any": 8,
+    "level": 2,
+    "models": [
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "deepseek-v3.2",
+      "gemini-2.5-flash",
+      "gemma-4-26b-a4b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "soonsiens/adversarial-cognitive-profiling-metacognition",
+        "completed": 8,
+        "total": 8
+      }
+    ]
+  },
+  "10": {
+    "distinct_models_completed": 22,
+    "distinct_models_any": 24,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-opus-4-8-default",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-pro-preview",
+      "gemini-3.5-flash",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-oss-120b",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "rafalporwol/predict-next-letter-state",
+        "completed": 22,
+        "total": 24
+      }
+    ]
+  },
+  "11": {
+    "distinct_models_completed": 9,
+    "distinct_models_any": 9,
+    "level": 2,
+    "models": [
+      "claude-opus-4-6-default",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "gemini-2.5-flash",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-oss-120b",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "ngarai/mindgames-social-cognition-hard",
+        "completed": 8,
+        "total": 9
+      },
+      {
+        "task": "ngarai/mindgames-social-cognition",
+        "completed": 9,
+        "total": 9
+      }
+    ]
+  },
+  "12": {
+    "distinct_models_completed": 23,
+    "distinct_models_any": 23,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-sonnet-4-20250514",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-pro-preview",
+      "gemma-3-1b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-nano-2026-03-17",
+      "gpt-oss-120b",
+      "gpt-oss-20b",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "zacharymaronek/stalenessdetection",
+        "completed": 22,
+        "total": 22
+      },
+      {
+        "task": "zacharymaronek/reversion-evaluation",
+        "completed": 13,
+        "total": 21
+      },
+      {
+        "task": "zacharymaronek/causalreasoning",
+        "completed": 8,
+        "total": 21
+      },
+      {
+        "task": "zacharymaronek/asofqa",
+        "completed": 21,
+        "total": 21
+      },
+      {
+        "task": "zacharymaronek/changedetection",
+        "completed": 14,
+        "total": 21
+      },
+      {
+        "task": "zacharymaronek/pastquerytrap",
+        "completed": 4,
+        "total": 4
+      },
+      {
+        "task": "zacharymaronek/temporal-ambiguity",
+        "completed": 0,
+        "total": 3
+      },
+      {
+        "task": "zacharymaronek/temporalbench-v4-overlapquery",
+        "completed": 5,
+        "total": 5
+      }
+    ]
+  },
+  "13": {
+    "distinct_models_completed": 27,
+    "distinct_models_any": 27,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-opus-4-6-default",
+      "claude-sonnet-4-20250514",
+      "claude-sonnet-4-5-20250929",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3-pro-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "glm-5",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "naivedhyaagrawal/action-cancellation",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/cognitive-estimation",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/digit-span",
+        "completed": 27,
+        "total": 27
+      },
+      {
+        "task": "naivedhyaagrawal/dual-task",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/flanker",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/go-nogo",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/memory-cascade",
+        "completed": 6,
+        "total": 6
+      },
+      {
+        "task": "naivedhyaagrawal/n-back",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/planning-paradox",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/reversal-trap",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/rule-switch",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/stroop-gauntlet",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/tower-of-hanoi",
+        "completed": 27,
+        "total": 27
+      },
+      {
+        "task": "naivedhyaagrawal/trail-making",
+        "completed": 27,
+        "total": 27
+      },
+      {
+        "task": "naivedhyaagrawal/verbal-fluency",
+        "completed": 1,
+        "total": 1
+      },
+      {
+        "task": "naivedhyaagrawal/wisconsin-card-sort",
+        "completed": 1,
+        "total": 1
+      }
+    ]
+  },
+  "14": {
+    "distinct_models_completed": 34,
+    "distinct_models_any": 34,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-opus-4-6-default",
+      "claude-opus-4-7-default",
+      "claude-sonnet-4-20250514",
+      "claude-sonnet-4-5-20250929",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-mini-2026-03-17",
+      "gpt-5.4-nano-2026-03-17",
+      "gpt-oss-120b",
+      "gpt-oss-20b",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "kityugin/gas-station-dilemma-5k",
+        "completed": 34,
+        "total": 34
+      },
+      {
+        "task": "kityugin/gas-station-dilemma-5m",
+        "completed": 34,
+        "total": 34
+      },
+      {
+        "task": "kityugin/gas-station-dilemma",
+        "completed": 34,
+        "total": 34
+      }
+    ]
+  },
+  "15": {
+    "distinct_models_completed": 33,
+    "distinct_models_any": 33,
+    "level": 2,
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-1-20250805",
+      "claude-opus-4-5-20251101",
+      "claude-opus-4-6-default",
+      "claude-sonnet-4-20250514",
+      "claude-sonnet-4-5-20250929",
+      "claude-sonnet-4-6-default",
+      "deepseek-r1-0528",
+      "deepseek-v3.1",
+      "deepseek-v3.2",
+      "gemini-2.0-flash-001",
+      "gemini-2.0-flash-lite-001",
+      "gemini-2.5-flash",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite-preview",
+      "gemini-3.1-pro-preview",
+      "gemma-3-12b-it",
+      "gemma-3-1b-it",
+      "gemma-3-27b-it",
+      "gemma-3-4b-it",
+      "gemma-4-26b-a4b-it",
+      "gemma-4-31b-it",
+      "glm-5",
+      "gpt-5.4-2026-03-05",
+      "gpt-5.4-mini-2026-03-17",
+      "gpt-5.4-nano-2026-03-17",
+      "gpt-oss-120b",
+      "gpt-oss-20b",
+      "qwen3-235b-a22b-instruct-2507",
+      "qwen3-coder-480b-a35b-instruct",
+      "qwen3-next-80b-a3b-instruct",
+      "qwen3-next-80b-a3b-thinking"
+    ],
+    "per_task": [
+      {
+        "task": "ihechilurumblessed/code-golf-task",
+        "completed": 33,
+        "total": 33
+      },
+      {
+        "task": "ihechilurumblessed/egat-tier1-shared-semantic-space",
+        "completed": 33,
+        "total": 33
+      },
+      {
+        "task": "ihechilurumblessed/regex-golf-benchmark",
+        "completed": 32,
+        "total": 33
+      }
+    ]
+  }
+}
