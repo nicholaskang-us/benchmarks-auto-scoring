@@ -1,0 +1,36 @@
+[
+  {
+    "benchmark_number": 10,
+    "folder": "10_Observe_Reason_Learn_Verify_Adapt_Loop",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Ground truth is fully deterministic: each test input has an expected output string in the dataset, and evaluate_reply scores via exact match (reply.answers[k] == v) over all 487 test inputs. Answers are unambiguous and verifiable in code."},
+      "2_construct_validity": {"level": 2, "justification": "The task directly operationalizes the claimed capability (induce simple letter mappings from observations, verify, and adapt when later observations override earlier ones) using a stateful multi-turn chat with explicit override semantics in the data, tightly matching the 'learn/verify/adapt loop' claim; output-format confounds are mitigated with a strict YAML spec and parse-failure handling."},
+      "3_code_quality": {"level": 1, "justification": "Functional with clean dataclasses (LearningTask, ModelReply), fenced-YAML extraction, type validation, and try/except handling for unparseable replies with a fallback empty reply; but it has rough edges: hardcoded /kaggle/input path, all 130 tasks run in a single conversation history (context-drift risk), no markdown, and a bare-ish broad 'except Exception'."},
+      "4_sample_size": {"level": 2, "justification": "130 sequential tasks comprising 487 individual test inputs, far exceeding the >20 threshold and enabling reliable aggregate scoring."},
+      "5_metric_design": {"level": 0, "justification": "Effectively a single accuracy dimension (correct_answers / total_test_inputs) multiplied by penalty factors for an intro response and for any unparseable replies; no second performance dimension (no calibration, latency, or per-condition breakdown) and no markdown justification of metric choice."},
+      "6_problem_statement": {"level": 1, "justification": "The benchmark_task_description names the target capability (reason out rules from observations, verify, adapt to contradictions, repeat across interactions) and gives basic motivation, but does not connect it to a broader research question or identify a gap relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 0, "justification": "The notebook is a single code cell with zero markdown; there is no documentation of dataset provenance, the override/schema design, scoring rules, or metric interpretation. A reader must reverse-engineer the YAML format and evaluation from the code."},
+      "8_capability_targeting": {"level": 1, "justification": "Targets a specific sub-capability (incremental rule induction with adaptation to overriding observations) with an implicit hypothesis, but the code includes no explicit experimental controls, difficulty tiers, or override-vs-non-override condition labels, so performance cannot be cleanly attributed to the adaptation mechanism specifically."},
+      "9_item_diversity": {"level": 1, "justification": "Items vary naturally in observation count (2-22) and complexity and include override dynamics across tasks, but there is no labeled taxonomy or difficulty stratification and the notebook reports only an aggregate score, with no per-condition breakdown to reveal where models fail."},
+      "10_model_coverage": {"level": 0, "justification": "Only a single .run(kbench.llm, tasks) invocation with one model's results (result=0.108); no cross-model comparison is present."}
+    },
+    "total_score": 5.0
+  },
+  {
+    "benchmark_number": 13,
+    "folder": "13_Executive_Functions_The_Cognitive_Contro",
+    "criteria": {
+      "1_answer_correctness": {"level": 0, "justification": "The benchmark folder is empty: no notebook, dataset, or source note exists. No ground truth or verification logic is defined anywhere."},
+      "2_construct_validity": {"level": 0, "justification": "No task page text or notebook implementation is present, so there is nothing to align with the implied 'executive functions / cognitive control' claim; construct validity cannot be established."},
+      "3_code_quality": {"level": 0, "justification": "No notebook or code exists for the task; per the rubric, absence of a task notebook is Level 0."},
+      "4_sample_size": {"level": 0, "justification": "No dataset or evaluation items are present, yielding effectively zero items, far below the 10-item threshold."},
+      "5_metric_design": {"level": 0, "justification": "No metrics are computed because no notebook or evaluation logic exists."},
+      "6_problem_statement": {"level": 0, "justification": "No task page or description is provided beyond the folder name, so a reader cannot understand what the task measures or why it exists."},
+      "7_technical_documentation": {"level": 0, "justification": "No documentation of dataset provenance, methodology, or scoring exists; the folder contains no files at all."},
+      "8_capability_targeting": {"level": 0, "justification": "With no materials present, there is no defined capability, hypothesis, or experimental control to evaluate."},
+      "9_item_diversity": {"level": 0, "justification": "No items exist, so there is no taxonomy, sub-condition labeling, or difficulty stratification."},
+      "10_model_coverage": {"level": 0, "justification": "No notebook or run results exist, so the task has been run on zero models."}
+    },
+    "total_score": 0.0
+  }
+]

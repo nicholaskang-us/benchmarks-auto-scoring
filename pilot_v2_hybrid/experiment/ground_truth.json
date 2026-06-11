@@ -1,0 +1,72 @@
+{
+  "1": {
+    "title": "Behavioral Metacognitive Control on Expert Questions in LLMs",
+    "human": 97.3,
+    "tier": "top"
+  },
+  "2": {
+    "title": "Russian Doll Bench: Infrastructure Building Capabilities",
+    "human": 96.4,
+    "tier": "top"
+  },
+  "4": {
+    "title": "Can LLMs Inhibit Optimization in Supply-Chain Decision-Making?",
+    "human": 93.7,
+    "tier": "top"
+  },
+  "5": {
+    "title": "The Time Traveler's Dilemma: Empathy, Oversight, & the Stop Sign Effect",
+    "human": 91.2,
+    "tier": "top"
+  },
+  "6": {
+    "title": "ITTIA - I think therefore I am",
+    "human": 64.7,
+    "tier": "mid"
+  },
+  "7": {
+    "title": "Embodied Inhibitory Control in AnimalAI",
+    "human": 64.7,
+    "tier": "mid"
+  },
+  "8": {
+    "title": "Social Cognition - Understanding The Mind of Agents and Semantics",
+    "human": 64.6,
+    "tier": "mid"
+  },
+  "9": {
+    "title": "Adversarial Cognitive Profiling (ACP): Metacognitive Calibration Benchmark",
+    "human": 64.6,
+    "tier": "mid"
+  },
+  "10": {
+    "title": "Observe-Reason-Learn-Verify-Adapt-Loop",
+    "human": 64.6,
+    "tier": "mid"
+  },
+  "11": {
+    "title": "STRATAGEM-SC: Strategic Theory-of-Mind Benchmark for Social Cognition",
+    "human": 28.6,
+    "tier": "bottom"
+  },
+  "12": {
+    "title": "TemporalBench: Validity Windows Beat Decay Functions in Temporal Reasoning",
+    "human": 26.0,
+    "tier": "bottom"
+  },
+  "13": {
+    "title": "Executive Functions: The Cognitive Control Suite",
+    "human": 22.5,
+    "tier": "bottom"
+  },
+  "14": {
+    "title": "The Efficiency Paradox: Measuring Heuristic Capture in Vehicle-Centric Planning",
+    "human": 20.4,
+    "tier": "bottom"
+  },
+  "15": {
+    "title": "Constraint Adaptation Benchmark (CAB)",
+    "human": 13.3,
+    "tier": "bottom"
+  }
+}
