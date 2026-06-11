@@ -1,0 +1,87 @@
+[
+  {
+    "benchmark_number": 2,
+    "folder": "02_Russian_Doll_Bench_Infrastructure_Buildi",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code: eval imported from dataset pkg (benchmark/infrastructure.py run_agent_loop) scores status['online']/status['total'] from a real tool-using agent loop with deterministic file/run operations; pass/fail keys are computed from actual environment state, not authored answer strings."},
+      "2_construct_validity": {"level": 2, "justification": "Task page (markdown prose) claims an adaptive infrastructure-building agentic benchmark; notebook code (traced into tasks.py adaptive_learning + infrastructure.py run_agent_loop) genuinely drives the model through write_file/read_file/update_file/run/give_up tool calls and scores the resulting environment, so claim and code align and the model is truly measured."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code: well-structured package (tasks.py, infrastructure.py, task_generator.py, prompts/system.md) with clear agent loop, separation of generators T1..T5, and readable helpers; the notebook AttributeError on LocalEnvironment is an environmental version mismatch, not a logic defect."},
+      "4_sample_size": {"level": 2, "justification": "Notebook code: TaskSpecGenerator tasks_count=50 across 5 increasing-complexity tiers gives ample independent items for a stable agentic score."},
+      "5_metric_design": {"level": 2, "justification": "Notebook code: graded continuous score = online services / total required services from real environment inspection, rewarding partial progress rather than a brittle all-or-nothing match."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose: the markdown/docstring sets up the adaptive infrastructure-building premise but is thin and setup-oriented, lacking a fully developed motivation/spec of what good performance means."},
+      "7_technical_documentation": {"level": 2, "justification": "Task page + notebook: prompts/system.md and terminal .md docs plus inline structure thoroughly document the agent interface, tools, and scoring."},
+      "8_capability_targeting": {"level": 2, "justification": "Task page + notebook: the agentic tool-calling loop with escalating tiers cleanly targets multi-step infrastructure/agent capability rather than a narrow trivia skill."},
+      "9_item_diversity": {"level": 2, "justification": "Notebook code: 10 distinct generators across 5 complexity tiers produce structurally varied tasks, avoiding near-duplicate items."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 15 distinct completed models (>=4 -> level 2)."}
+    },
+    "total_score": 9.5
+  },
+  {
+    "benchmark_number": 5,
+    "folder": "05_The_Time_Traveler_s_Dilemma_Empathy_Over",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Notebook code: deterministic word-count and forbidden-token lexical checks are sound, but pass/fail ultimately rests on a subjective 4-judge LLM panel at a 75% threshold, so correctness keys are partly opinion-based rather than verifiable."},
+      "2_construct_validity": {"level": 1, "justification": "Task page claims to measure metacognition/empathy; notebook code (llm.prompt + lexical gating + judge panel) actually measures constrained creative writing and instruction-following, a real model eval but with a substantial construct gap/confound."},
+      "3_code_quality": {"level": 1, "justification": "Notebook code: functional but heavily copy-pasted across 5 near-identical notebooks with duplicated logic and little abstraction."},
+      "4_sample_size": {"level": 0, "justification": "Notebook code: each notebook is a single @kbench.task with one prompt -> 5 items total, far too few for a stable score."},
+      "5_metric_design": {"level": 1, "justification": "Notebook code: combines deterministic lexical checks with a multi-judge rubric, but the 75% judge threshold makes the headline metric noisy and partly subjective."},
+      "6_problem_statement": {"level": 0, "justification": "Task-page prose: only a one-line description plus docstring; no developed problem statement explaining the construct, motivation, or success criteria."},
+      "7_technical_documentation": {"level": 1, "justification": "Task page + notebook: minimal inline comments and a thin description document the flow only partially; judge criteria are present but not well explained."},
+      "8_capability_targeting": {"level": 1, "justification": "Task page + notebook: aims at empathy/metacognition but the implementation targets lexical constraint compliance, so capability targeting is loose."},
+      "9_item_diversity": {"level": 1, "justification": "Notebook code: 5 different historical-figure prompts give some variety but all share one identical template/format."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 40 distinct completed models (>=4 -> level 2)."}
+    },
+    "total_score": 4.5
+  },
+  {
+    "benchmark_number": 9,
+    "folder": "09_Adversarial_Cognitive_Profiling_ACP_Meta",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code: ground-truth answers are generated programmatically for World-Swap problems and checked deterministically against structured llm.prompt(schema=UnifiedResp) output, so correctness keys are verifiable."},
+      "2_construct_validity": {"level": 2, "justification": "Task page claims adversarial metacognition profiling; notebook code computes SDT metrics (d', meta-d', M-ratio), ECE, asymmetric Brier (ACE), and selective prediction over real model answers with a scaffold-equalized Tier1 to remove confounds, tightly matching the claim."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code: clean, modular implementation of generators, metrics, bootstrap CIs (5000 resamples), and slop detection with clear structure."},
+      "4_sample_size": {"level": 2, "justification": "Notebook code: N=600 problems across 4 tiers x 4 types provides a large, well-stratified sample."},
+      "5_metric_design": {"level": 2, "justification": "Notebook code: sophisticated multi-metric design (meta-d'/M-ratio, ECE, ACE, selective prediction scoring +1/0/-5, tool utility) with bootstrap 95% CIs and per-tier breakdown."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose: strong markdown sections describe the metacognition construct, but the public-facing statement is somewhat technical/dense rather than a fully self-contained motivating problem statement."},
+      "7_technical_documentation": {"level": 2, "justification": "Task page + notebook: extensive markdown plus inline documentation explain metrics, generators, and confound controls thoroughly."},
+      "8_capability_targeting": {"level": 2, "justification": "Task page + notebook: directly targets metacognitive calibration/uncertainty via SDT and selective prediction, a precise capability focus."},
+      "9_item_diversity": {"level": 2, "justification": "Notebook code: 4 problem types (operator_swap, physics, linguistic, logic) across 4 difficulty tiers yield high structural diversity."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 8 distinct completed models (>=4 -> level 2)."}
+    },
+    "total_score": 9.5
+  },
+  {
+    "benchmark_number": 12,
+    "folder": "12_TemporalBench_Validity_Windows_Beat_Deca",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Notebook code: the model-calling eval (temporalbench-eval) uses brittle substring matching and staleness-detection uses keyword matching on mock items, so correctness keys are weak; the headline thesis tasks assert predicted is not None on the authors' own store, which is not model correctness."},
+      "2_construct_validity": {"level": 0, "justification": "Task page claims 'validity windows beat decay' temporal benchmark; notebook code for the central thesis tasks (temporalbench-v2-pccc / v4: PastQueryTrap, ChangeDetection, etc.) takes llm but NEVER calls it, instead asserting against the authors' own TemporalAttentionStoreWithValidity and scoring 942/942, 734/734 by construction -- the headline eval does not measure a model."},
+      "3_code_quality": {"level": 1, "justification": "Notebook code: spread across 5 inconsistent notebooks with mock hardcoded items, by-construction assertions, and brittle matching, indicating low overall quality."},
+      "4_sample_size": {"level": 2, "justification": "Notebook code: the real model-facing tasks operate over large item sets (e.g. 2000-item CSV for temporal-ambiguity, 734/942-row stores), so raw item counts are ample where the model is actually queried."},
+      "5_metric_design": {"level": 0, "justification": "Notebook code: headline metrics are by-construction pass counts (942/942) disconnected from model output, and the model-calling variants rely on fragile substring/keyword matching, so the metric does not validly measure model performance."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose: the markdown articulates the 'validity windows beat decay' thesis but reads as an argument for the authors' store design rather than a clean problem statement for the model under test."},
+      "7_technical_documentation": {"level": 1, "justification": "Task page + notebook: some inline explanation exists but it is inconsistent across the 5 notebooks and conflates the authors' store with the model eval."},
+      "8_capability_targeting": {"level": 1, "justification": "Task page + notebook: temporal reasoning is the intended capability, but because the central tasks never query the model, targeting of model capability is only partial (limited to the auxiliary model-calling notebooks)."},
+      "9_item_diversity": {"level": 1, "justification": "Notebook code: several query types exist (PastQueryTrap, ChangeDetection, OverlapQuery, etc.) but many share a single store template and some rely on a few mock items, limiting genuine diversity."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 23 distinct completed models (>=4 -> level 2)."}
+    },
+    "total_score": 5.0
+  },
+  {
+    "benchmark_number": 15,
+    "folder": "15_Constraint_Adaptation_Benchmark_CAB",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code: solutions are validated deterministically -- code-golf executes submissions against hidden tests, regex-golf uses re.fullmatch against MATCH/DO_NOT_MATCH lists with pre-validated baselines, so pass/fail is objectively verifiable."},
+      "2_construct_validity": {"level": 2, "justification": "Task page claims a constraint-adaptation benchmark; notebook code genuinely calls the model with iterative feedback (llm.prompt over 10 trials) and scores fractional length reduction / geometric movement on real outputs, closely matching the claim that it measures adapting to constraints."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code: clean evaluators with robust error handling (syntax/logic guards, system-role-rejection fallback) and clear feedback construction across all three notebooks."},
+      "4_sample_size": {"level": 1, "justification": "Notebook code: 15 items total (5 code-golf + 5 regex sessions + 5 EGAT prompts) -- adequate but modest, partly offset by 10-trial reprompting per item."},
+      "5_metric_design": {"level": 1, "justification": "Notebook code: fractional character/length reduction is a sensible graded metric, but the -1.0 penalty per failed session and small session count make the aggregate sensitive to single failures."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose: clear per-notebook descriptions (e.g. Regex Golf scoring table and session overview) but no unified, fully motivated benchmark-level problem statement."},
+      "7_technical_documentation": {"level": 2, "justification": "Task page + notebook: thorough markdown (scoring formulas, session tables) plus well-commented code document the eval end to end."},
+      "8_capability_targeting": {"level": 2, "justification": "Task page + notebook: compression-under-constraints (regex/code golf, embedding geometry) precisely targets constraint-adaptation/optimization capability."},
+      "9_item_diversity": {"level": 2, "justification": "Notebook code: three distinct task families (code golf, regex golf, EGAT embedding geometry) with varied sub-tasks give strong structural diversity."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 33 distinct completed models (>=4 -> level 2)."}
+    },
+    "total_score": 8.5
+  }
+]

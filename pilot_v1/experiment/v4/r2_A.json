@@ -1,0 +1,70 @@
+[
+  {
+    "benchmark_number": 4,
+    "folder": "04_Can_LLMs_Inhibit_Optimization_in_Supply_",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Notebook defines a deterministic ground truth (Sterman heuristic simulator outputs and LOHO baseline) and computes per-step ΔNLL via Gaussian NLL, but there is no exact 'correct answer' per item — scoring is a continuous similarity-to-human metric with fragile order parsing (regex grabs first integer), so verification is well-defined but not unambiguous."},
+      "2_construct_validity": {"level": 1, "justification": "Task-page docstring claims 'Baseline Executive Control' / inhibiting optimization in supply chains; notebook code actually plays the Beer Game with the model and scores ΔNLL of model orders vs human Sterman heuristic — it does measure a real model (prompts sent, responses parsed), but the metric rewards human-likeness rather than inhibition/executive control, a moderate construct gap."},
+      "3_code_quality": {"level": 1, "justification": "Notebook code is functional and reasonably structured (Player class, eta-pipelines, simulator), but it is a single monolithic cell, has no markdown, uses brittle regex order parsing with a silent default of 0, and carries 'Groq version' porting comments — functional with rough edges."},
+      "4_sample_size": {"level": 2, "justification": "Notebook runs NUM_SESSIONS=11 sessions × 4 roles × 24 rounds, yielding 44 role-trajectories and ~440 scored steps far beyond 20 evaluation items."},
+      "5_metric_design": {"level": 1, "justification": "Notebook computes a single performance dimension (mean ΔNLL/step) aggregated across roles; it is reasonably motivated (LOHO baseline) but only one underlying dimension is measured, with no second distinct metric like cost or calibration."},
+      "6_problem_statement": {"level": 0, "justification": "Task-page prose is only a code docstring ('Task 1: Baseline Executive Control — Beer Distribution Game ... ΔNLL scoring uses Sterman's heuristic'); there are no markdown cells and no articulation of what capability is measured or why it matters."},
+      "7_technical_documentation": {"level": 1, "justification": "Notebook docstrings/comments explain the simulator, ΔNLL scoring, and pipeline mechanics so a reader can follow the code, but there is no task-page methodology, no dataset/provenance description of the Sterman params, and no metric-interpretation section — partial."},
+      "8_capability_targeting": {"level": 1, "justification": "Task page names an executive-control domain and notebook has two variants (task-1 baseline vs task-2 enhanced-prompt) giving a coarse manipulation, but there are no controlled congruent/incongruent conditions isolating inhibition; performance reflects general supply-chain reasoning/human-likeness rather than a specific isolated sub-capability."},
+      "9_item_diversity": {"level": 1, "justification": "Notebook varies items across 11 distinct human-calibrated sessions and 4 roles (natural variation), and reports per-role ΔNLL, but there is no structured difficulty taxonomy or labeled sub-condition stratification beyond role/session."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 15 distinct completed models (≥4 → level 2)."}
+    },
+    "total_score": 5.5
+  },
+  {
+    "benchmark_number": 7,
+    "folder": "07_Embodied_Inhibitory_Control_in_AnimalAI",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook defines unambiguous deterministic ground truth: text/AAI go-no-go passes only if GO is issued at DISTANCE==0 (else failure_reason set), and the vision task checks exact integer goal counts (_count_goals) — verifiable assertion logic per item."},
+      "2_construct_validity": {"level": 2, "justification": "Task-page markdown claims inhibitory control (withhold GO until DISTANCE reaches 0); notebook code operationalizes exactly this with a prepotent 'go for the reward' pull and explicit control vs test conditions (_filter_ramp_yml_files, control=0-goal), tightly aligning measurement with the claimed capability and sending real prompts/parsing real actions."},
+      "3_code_quality": {"level": 2, "justification": "Notebooks are clean and modular: idiomatic kaggle-benchmarks use (@task, evaluate(), chats.new, structured Response schema, GoNoGoActor/Scaffold), robust action parsing with safe WAIT default, dynamic CSV column discovery, and graceful env teardown in finally blocks."},
+      "4_sample_size": {"level": 2, "justification": "Text task runs evaluate over scenarios (5+ CSV scenarios) × repeats=range(10) = 50+ runs, and AnimalAI/vision/physics tasks iterate over many filtered configs (297 yml configs in the dataset), well above 20 items."},
+      "5_metric_design": {"level": 1, "justification": "Notebooks compute pass-rate (fraction of scenarios passed) as the primary metric across variants; it is appropriate for go-no-go but a single accuracy-type dimension with no second distinct dimension (e.g. timing latency) or documented bias mitigation."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page markdown (text-only notebook) clearly states the capability and explicit rules (DISTANCE decrement, WAIT/GO commit, pass/fail criteria), naming inhibitory control, but does not connect it to a broader research question or gap relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 2, "justification": "Across artifacts there is comprehensive documentation: text notebook's markdown Rules section, prompt definitions, dataset CSV schema discovery, control vs test filtering logic, and code-level docstrings explaining the environment, scaffold, and scoring — a reader can reproduce the protocol."},
+      "8_capability_targeting": {"level": 2, "justification": "Task page states a specific inhibition hypothesis and the notebook isolates it with paired control vs test conditions (control arenas have no roll-in reward) and graded starting distances, allowing performance differences to be attributed to inhibitory control."},
+      "9_item_diversity": {"level": 2, "justification": "Items are explicitly structured: ramp slope magnitudes, main/ramp/wall goal placements parsed from config names, and separate control/test/vision/physics conditions, with results reportable per condition across the multiple task notebooks."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 7 distinct completed models (≥4 → level 2)."}
+    },
+    "total_score": 9.0
+  },
+  {
+    "benchmark_number": 10,
+    "folder": "10_Observe_Reason_Learn_Verify_Adapt_Loop",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook defines unambiguous ground truth: each test input has a known mapped output in the YAML dataset, and evaluate_reply does exact-match comparison (reply.answers[k] == v) with deterministic scoring."},
+      "2_construct_validity": {"level": 1, "justification": "Task-page description claims measuring rule induction, verification, and adaptation to contradicting overrides across interactions; notebook code does send tasks sequentially and exact-matches predicted letter mappings, genuinely measuring the model, but accuracy heavily conflates the target reasoning with strict YAML output-format compliance (unparseable replies and any intro response are penalized), introducing a formatting confound."},
+      "3_code_quality": {"level": 1, "justification": "Single-cell notebook is functional with dataclasses and YAML parsing, but has rough edges: a broad except around parsing, a heuristic ```yaml block extraction, and penalty logic mixed into the scoring; minimal comments and no markdown walkthrough."},
+      "4_sample_size": {"level": 2, "justification": "Dataset contains 130 sequential tasks with 487 total test inputs scored, far exceeding 20 evaluation items."},
+      "5_metric_design": {"level": 0, "justification": "Notebook computes a single dimension — fraction of correct answers — modified by ad-hoc multiplicative penalty factors (−0.1 for any intro response, −0.1 for any unparseable reply); no second distinct performance dimension and the penalties are unjustified rather than a principled second metric."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose (benchmark_task_description) names the capability — reason out letter-mapping rules from observations, verify, and adapt when new observations override prior ones — clear and specific, but offers no motivation for why it matters or what gap it fills."},
+      "7_technical_documentation": {"level": 1, "justification": "The intro_prompt and description document the task format and the override mechanic with an example, and the YAML dataset is self-describing, but there is no markdown section on dataset construction, column/schema semantics, scoring edge cases, or metric interpretation — partial."},
+      "8_capability_targeting": {"level": 1, "justification": "Task page targets a named capability (incremental rule learning with overrides) and the dataset's override design gives some control, but the notebook does not report results stratified by difficulty or override-vs-non-override conditions, so it does not isolate adaptation from base induction."},
+      "9_item_diversity": {"level": 1, "justification": "Items vary naturally in complexity (mapping size, string length, override presence grows across task_ids 1..130), but the data/code carry no explicit difficulty tiers or sub-condition labels and report only an aggregate accuracy, not per-condition breakdowns."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 22 distinct completed models (≥4 → level 2)."}
+    },
+    "total_score": 6.0
+  },
+  {
+    "benchmark_number": 13,
+    "folder": "13_Executive_Functions_The_Cognitive_Contro",
+    "criteria": {
+      "1_answer_correctness": {"level": 0, "justification": "Source folder is empty (private, no notebooks captured); no ground-truth or verification logic is available to inspect, so Level 0."},
+      "2_construct_validity": {"level": 0, "justification": "No notebook code and no task-page prose are available to perform the claim-vs-implementation comparison; nothing can be confirmed to measure a model, so Level 0."},
+      "3_code_quality": {"level": 0, "justification": "No code or notebook exists for the task in the captured material; per the rubric this is Level 0 by definition."},
+      "4_sample_size": {"level": 0, "justification": "No notebook or dataset is present to count evaluation items, so Level 0."},
+      "5_metric_design": {"level": 0, "justification": "No notebook code is available to inspect any metric computation, so Level 0."},
+      "6_problem_statement": {"level": 0, "justification": "No task-page prose (no markdown cells or description) is present in the empty folder, so a reader cannot understand what is measured — Level 0."},
+      "7_technical_documentation": {"level": 0, "justification": "No documentation of dataset, methodology, or scoring exists in the captured material — Level 0."},
+      "8_capability_targeting": {"level": 0, "justification": "No task page or notebook is available to assess a stated hypothesis or item design, so Level 0."},
+      "9_item_diversity": {"level": 0, "justification": "No items or data are present to inspect for structured diversity, so Level 0."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 27 distinct completed models (≥4 → level 2)."}
+    },
+    "total_score": 1.0
+  }
+]

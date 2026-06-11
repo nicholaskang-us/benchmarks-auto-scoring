@@ -1,0 +1,87 @@
+[
+  {
+    "benchmark_number": 1,
+    "folder": "01_Behavioral_Metacognitive_Control_on_Expe",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code uses fully deterministic, multi-dimensional scoring: difficulty-weighted delegation rewards, confidence-anchored answer scoring (1.0/0.65/0.40/0.0), and type-2 SDT (d*/d-hat) with explicit indeterminate handling — all verifiable from code."},
+      "2_construct_validity": {"level": 2, "justification": "Task page (docstrings) claims behavioral metacognition (acting on uncertainty vs reporting it); notebook code operationalizes exactly that via ANSWER/DELEGATE choices scored against empirical GPQA difficulty, paired neutral/affective framing, and Wang-style SDT — real model prompting tightly aligned to the claim."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code is clean and modular: _safe_prompt with graceful error handling, backward-iterating JSON parsing with keyword fallbacks, per-item CSV logging, completion-rate normalization, and idiomatic kbench.task usage."},
+      "4_sample_size": {"level": 2, "justification": "Each task evaluates 80 GPQA Diamond questions (160 prompts for two-phase tasks), well above the 20-item threshold."},
+      "5_metric_design": {"level": 2, "justification": "Notebook computes multiple distinct dimensions across tasks — mean reward plus delegation AUC-ROC, SDT meta-sensitivity (d*/d-hat), confidence calibration and instability composites — with markdown/docstring justification of each."},
+      "6_problem_statement": {"level": 2, "justification": "Task-page prose (rich docstrings) names the exact capability (behavioral vs declarative metacognition), explains why it matters, distinguishes ER from PI, and cites references — a compelling, specific statement."},
+      "7_technical_documentation": {"level": 2, "justification": "Docstrings document dataset provenance (GPQA Diamond, difficulty from 10-model HPC runs), full scoring rules, protocol, cost per model, and references; combined with self-documenting code this covers both artifacts comprehensively."},
+      "8_capability_targeting": {"level": 2, "justification": "Probes a specific sub-capability (behavioral metacognitive control) with explicit hypotheses and paired/controlled conditions (delegate vs answer, neutral vs affective, signal vs noise SDT trials)."},
+      "9_item_diversity": {"level": 2, "justification": "Eleven distinct sub-tasks (delegate game, declared probe, second chance, confidence entropy, ER/CI/EM/PI behavioral signals, DPP sequence, MC binary pairs) plus per-item difficulty stratification enable a structured performance gradient."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 31 distinct completed models."}
+    },
+    "total_score": 10.0
+  },
+  {
+    "benchmark_number": 6,
+    "folder": "06_ITTIA_I_think_therefore_I_am",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code defines deterministic boolean correctness via first-token extraction against curated accepted-variant/synonym sets (and category-sibling sets for rule B), giving robust verifiable ground truth."},
+      "2_construct_validity": {"level": 2, "justification": "Task page (docstrings) claims inhibitory control / task-switching; notebook code isolates it via congruent-vs-incongruent and non-switch-vs-post-switch paired conditions over real model prompting, where the accuracy delta is the construct — well aligned."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code is functional and idiomatic (kbench evaluate over DataFrame, split-file-with-fallback loading, normalization helpers), though it relies on large inline variant dictionaries with sparse comments."},
+      "4_sample_size": {"level": 2, "justification": "Per-condition CSVs hold 50-200 items each (e.g. 150 congruent/incongruent, 183 post-switch, 199 stress-ceiling), far exceeding 20."},
+      "5_metric_design": {"level": 1, "justification": "Each notebook computes a single accuracy/boolean metric; the conflict-effect and switch-cost deltas are conceptually paired across notebooks but no within-notebook second dimension is computed."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page docstrings name the capability and the paired metric (conflict effect, switch cost) with design rationale, but give limited broader motivation or gap framing relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 1, "justification": "Docstrings document the design and pairing and the dataset split logic, but there is no rich markdown walkthrough and dataset schema/scoring edge cases are only partially described across the two artifacts."},
+      "8_capability_targeting": {"level": 2, "justification": "Targets specific sub-capabilities with explicit control/perturbation conditions (congruent baseline vs incongruent conflict; non-switch vs post-switch) and stated hypotheses about the resulting performance delta."},
+      "9_item_diversity": {"level": 2, "justification": "Notebook/data organize items into a structured taxonomy with labeled sub-conditions (congruent/incongruent, switch/non-switch, rule A/B, ceiling, conflict_strength) supporting a graded analysis."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 6 distinct completed models."}
+    },
+    "total_score": 8.5
+  },
+  {
+    "benchmark_number": 8,
+    "folder": "08_Social_Cognition_Understanding_The_Mind_",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Notebook code does exact-match of lowercased response against expected_label, but several items are inherently subjective (\"Which sounds more serious/demanding?\") with debatable single-label ground truth and only case normalization, making verification fragile."},
+      "2_construct_validity": {"level": 1, "justification": "Task page claims framing-sensitivity / social cognition; notebook code uses single-shot forced choice, but several items conflate subjective preference with a fixed correct label, so failures may reflect reasonable disagreement rather than the claimed sensitivity — moderate confound."},
+      "3_code_quality": {"level": 1, "justification": "Notebook code is functional with column/label validation, but uses bare pass/fail assertions, captures no per-item output, and applies no judge or position-bias mitigation."},
+      "4_sample_size": {"level": 2, "justification": "Dataset contains 100 evaluation items (test.jsonl), exceeding the 20-item threshold."},
+      "5_metric_design": {"level": 0, "justification": "Notebook code computes only a single pass/fail accuracy via assertions, with no second dimension, no per-category breakdown, and no justification."},
+      "6_problem_statement": {"level": 1, "justification": "Task-page prose is one line (\"evaluating framing-of-statements sensitivity on a JSONL dataset\") — it names the target capability but provides no motivation or gap framing."},
+      "7_technical_documentation": {"level": 1, "justification": "Brief markdown headers describe the task at a high level, but there is no dataset schema/provenance documentation, no scoring edge-case description, and no metric interpretation across the two artifacts."},
+      "8_capability_targeting": {"level": 1, "justification": "Task page targets the framing domain and the data carries category labels (perception_shift, semantic_equivalence, etc.), but the eval mixes equivalence judgments with subjective preferences and never isolates or reports a specific sub-mechanism."},
+      "9_item_diversity": {"level": 1, "justification": "Notebook data includes a category column giving natural variation, but the evaluation code applies no difficulty stratification and reports no per-category breakdown."},
+      "10_model_coverage": {"level": 0, "justification": "model_runs.json: 1 distinct completed model."}
+    },
+    "total_score": 4.5
+  },
+  {
+    "benchmark_number": 11,
+    "folder": "11_STRATAGEM_SC_Strategic_Theory_of_Mind_Be",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Notebook code scores against structured gold JSON with deterministic, multi-component logic — goal-inference accuracy, deceptive-turn F1, confidence calibration, and invalid-outcome/lie-count penalties — fully verifiable from code."},
+      "2_construct_validity": {"level": 2, "justification": "Task title claims strategic theory-of-mind / deception detection; notebook code measures agent-goal inference and deceptive-turn detection on real model responses with calibration weighting — tightly aligned to the claimed construct."},
+      "3_code_quality": {"level": 2, "justification": "Notebook code is robust and modular: defensive JSON parsing, turn/goal-map normalization across many shapes, confidence coercion, glob-based dataset resolution, and idiomatic evaluate() usage."},
+      "4_sample_size": {"level": 2, "justification": "Dataset holds tens of thousands of scenarios with a difficulty field; the v2 notebook filters to difficulty>=3 and still has far more than 20 items."},
+      "6_problem_statement": {"level": 0, "justification": "Task-page prose is absent — neither notebook contains any markdown or docstring problem statement; only the bare task name exists, so a reader cannot learn what is measured or why."},
+      "5_metric_design": {"level": 2, "justification": "Notebook code computes multiple distinct dimensions — goal-inference accuracy, deceptive-turn F1, and confidence calibration — combined into a composite with explicit invalid/count penalties."},
+      "7_technical_documentation": {"level": 1, "justification": "There is no documentation prose in either artifact; the code is self-explanatory via helper names and the dataset's setting/difficulty fields, but dataset provenance, schema, and scoring rules are undocumented."},
+      "8_capability_targeting": {"level": 2, "justification": "Task probes a specific sub-capability (multi-agent goal inference plus deception/lie-turn detection) with difficulty stratification and a dedicated hard variant, supporting attribution to the target."},
+      "9_item_diversity": {"level": 1, "justification": "Notebook/data carry a difficulty field and many distinct settings (and v2 filters by difficulty tier), giving structured variation, but the eval does not report results broken down per tier or condition."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 9 distinct completed models."}
+    },
+    "total_score": 8.0
+  },
+  {
+    "benchmark_number": 14,
+    "folder": "14_The_Efficiency_Paradox_Measuring_Heurist",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Notebook code uses an LLM judge with a list of criteria, but the criteria insist 'driving is the only correct answer' while the models' walk-with-a-gas-can reasoning is plausibly correct, so the ground truth is contestable and the rubric is unanchored pass/fail."},
+      "2_construct_validity": {"level": 1, "justification": "Task title claims measuring heuristic override (efficiency paradox); notebook code judges responses against a contestable 'must drive' key, so model 'failures' may reflect sound real-world reasoning rather than the claimed capability — a real confound, though it does prompt and score a model."},
+      "3_code_quality": {"level": 1, "justification": "Notebook code is functional and uses the judge assertion API with None-handling, but is trivially minimal: a single hardcoded prompt per notebook, empty task description, and no item iteration or output capture."},
+      "4_sample_size": {"level": 0, "justification": "Each notebook evaluates exactly one hardcoded prompt; even across the three distance variants the total is ~3 single-item tasks — far below 10."},
+      "5_metric_design": {"level": 0, "justification": "Notebook code computes only a single pass/fail (all judge criteria must pass) with no second dimension and no justification."},
+      "6_problem_statement": {"level": 0, "justification": "Task-page prose is absent — notebooks contain no markdown and an empty description string; only the folder title exists, so the reader cannot understand the task from the page."},
+      "7_technical_documentation": {"level": 0, "justification": "No documentation in either artifact: no markdown, empty description, no dataset, and no description of the judging methodology or correctness rationale."},
+      "8_capability_targeting": {"level": 1, "justification": "The distance gradient across notebooks (5km/50m/5m) gestures at a heuristic-override hypothesis targeting a named idea, but no within-task controls exist and the contestable key weakens attribution."},
+      "9_item_diversity": {"level": 1, "justification": "Across the three notebooks the distance manipulation (5km/50m/5m) gives natural variation, but each notebook is a single homogeneous item with no internal taxonomy or per-condition reporting."},
+      "10_model_coverage": {"level": 2, "justification": "model_runs.json: 34 distinct completed models."}
+    },
+    "total_score": 3.5
+  }
+]
