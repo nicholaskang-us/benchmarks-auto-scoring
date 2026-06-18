@@ -1,0 +1,87 @@
+{
+  "1": {
+    "claude-3-5-sonnet": 0.95,
+    "gpt-4o": 0.90,
+    "gemini-1.5-flash": 0.60,
+    "gemma-2-9b": 0.40
+  },
+  "2": {
+    "claude-3-5-sonnet": 0.92,
+    "gpt-4o": 0.88,
+    "gemini-1.5-flash": 0.55,
+    "gemma-2-9b": 0.35
+  },
+  "3": {
+    "claude-3-5-sonnet": 0.90,
+    "gpt-4o": 0.85,
+    "gemini-1.5-flash": 0.70,
+    "gemma-2-9b": 0.55
+  },
+  "4": {
+    "claude-3-5-sonnet": 0.85,
+    "gpt-4o": 0.80,
+    "gemini-1.5-flash": 0.50,
+    "gemma-2-9b": 0.20
+  },
+  "5": {
+    "claude-3-5-sonnet": 0.60,
+    "gpt-4o": 0.58,
+    "gemini-1.5-flash": 0.55,
+    "gemma-2-9b": 0.50
+  },
+  "6": {
+    "claude-3-5-sonnet": 0.75,
+    "gpt-4o": 0.70,
+    "gemini-1.5-flash": 0.45,
+    "gemma-2-9b": 0.30
+  },
+  "7": {
+    "claude-3-5-sonnet": 0.70,
+    "gpt-4o": 0.65,
+    "gemini-1.5-flash": 0.55,
+    "gemma-2-9b": 0.48
+  },
+  "8": {
+    "claude-3-5-sonnet": 0.50,
+    "gpt-4o": 0.48,
+    "gemini-1.5-flash": 0.45,
+    "gemma-2-9b": 0.42
+  },
+  "9": {
+    "claude-3-5-sonnet": 0.88,
+    "gpt-4o": 0.82,
+    "gemini-1.5-flash": 0.50,
+    "gemma-2-9b": 0.25
+  },
+  "10": {
+    "claude-3-5-sonnet": 0.94,
+    "gpt-4o": 0.92,
+    "gemini-1.5-flash": 0.90,
+    "gemma-2-9b": 0.88
+  },
+  "11": {
+    "claude-3-5-sonnet": 0.80,
+    "gpt-4o": 0.75,
+    "gemini-1.5-flash": 0.48,
+    "gemma-2-9b": 0.28
+  },
+  "12": {
+    "claude-3-5-sonnet": 0.45,
+    "gpt-4o": 0.42,
+    "gemini-1.5-flash": 0.40,
+    "gemma-2-9b": 0.38
+  },
+  "13": {},
+  "14": {
+    "claude-3-5-sonnet": 0.30,
+    "gpt-4o": 0.28,
+    "gemini-1.5-flash": 0.28,
+    "gemma-2-9b": 0.25
+  },
+  "15": {
+    "claude-3-5-sonnet": 0.78,
+    "gpt-4o": 0.72,
+    "gemini-1.5-flash": 0.42,
+    "gemma-2-9b": 0.22
+  }
+}
