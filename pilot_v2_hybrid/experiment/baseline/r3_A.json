@@ -1,0 +1,70 @@
+[
+  {
+    "benchmark_number": 4,
+    "folder": "04_Can_LLMs_Inhibit_Optimization_in_Supply_",
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Ground truth is derived from a deterministic Sterman simulator and scored via a ΔNLL/step comparison against a leave-one-human-out baseline, so it is reproducible, but it is a relative likelihood score rather than an unambiguous right/wrong answer; the only hard assertions check order count and non-negativity, and order parsing uses a fragile regex that defaults to 0 on parse failure."},
+      "2_construct_validity": {"level": 1, "justification": "The task claims to measure executive control / inhibiting optimization in supply chains, but the operational metric is how human-like (ΔNLL vs Sterman params) the LLM's ordering is, which conflates inhibition with general behavioral mimicry; the two task variants (plain vs decision-guideline prompt) give some signal but the construct is measured only indirectly."},
+      "3_code_quality": {"level": 1, "justification": "Code is functional and reasonably structured into sections, but has no markdown cells, relies on a fragile regex parser with a silent default-to-0, has many hardcoded constants, and uses bare patterns; the visible run for task-1 returned an Unknown result and only reached Session 3 Week 8, indicating it did not complete cleanly."},
+      "4_sample_size": {"level": 2, "justification": "Each run iterates 11 sessions x 4 roles = 44 ΔNLL evaluation items per task, exceeding the 20-item threshold."},
+      "5_metric_design": {"level": 0, "justification": "Only a single aggregate metric (mean ΔNLL/step) is computed and returned; no second performance dimension, no calibration/latency, and no markdown justification of metric choice or limitations."},
+      "6_problem_statement": {"level": 0, "justification": "There is no task-page markdown or problem statement embedded; the notebook contains only code-level docstrings, so a reader cannot find a stated capability, motivation, or research gap."},
+      "7_technical_documentation": {"level": 1, "justification": "Module docstrings and section banners describe the pipeline (Sterman params, ΔNLL scoring, Player mechanics), giving partial methodology documentation, but there are no markdown cells, no dataset-provenance explanation of the 11 calibrated sessions, and no metric-interpretation walkthrough."},
+      "8_capability_targeting": {"level": 1, "justification": "The task targets a named domain (supply-chain ordering / bullwhip behavior) and offers two prompt variants as a manipulation, but it does not isolate a specific inhibitory sub-capability with a clean control condition; performance differences are attributed to human-likeness rather than a clearly hypothesized inhibition mechanism."},
+      "9_item_diversity": {"level": 1, "justification": "Items vary across 11 distinct human-calibrated parameter sets and 4 roles, and two prompt conditions exist across the two notebooks, providing natural variation, but there is no labeled difficulty taxonomy and the notebook does not report results broken down by a structured sub-condition stratification."},
+      "10_model_coverage": {"level": 0, "justification": "Each task is invoked with a single .run(kbench.llm) call; the captured output shows only one model run per task with no cross-model comparison."}
+    },
+    "total_score": 4.0
+  },
+  {
+    "benchmark_number": 7,
+    "folder": "07_Embodied_Inhibitory_Control_in_AnimalAI",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "All conditions use deterministic ground truth and assertion/exact-match logic: the go/no-go env passes only if GO is issued at DISTANCE==0, the vision task exact-matches an integer goal count derived from the config filename, and the physics MCQ exact-matches a deterministically computed correct letter; parsing has safe defaults."},
+      "2_construct_validity": {"level": 2, "justification": "Inhibitory control is isolated via paired test vs control conditions: the test condition requires withholding GO until the reward lands, while the control removes the ramp reward so no waiting is needed, and separate vision/physics sub-tasks verify the perceptual prerequisites so failures can be attributed to inhibition rather than perception confounds."},
+      "3_code_quality": {"level": 2, "justification": "Clean modular code using the SDK idiomatically (Actor classes, @task with .evaluate over scenarios, fresh chats.new per trial), structured-schema parsing with a safe WAIT default, a custom KaggleWrapper that rejects malformed actions, markdown rule descriptions, and try/finally env cleanup; MCQ option order is shuffled per trial."},
+      "4_sample_size": {"level": 2, "justification": "Across conditions the suite is large: the vision task loads ~143 frame directories, the physics task ~45 positive-ramp configs, and the text task runs 5 scenarios x 10 repeats = 50 runs; aggregate item count well exceeds 20, though the embodied/text test conditions individually use only ~5 distinct scenarios."},
+      "5_metric_design": {"level": 1, "justification": "Multiple metrics exist across the paradigm (test pass-rate, control pass-rate, vision accuracy, physics accuracy), enabling test-vs-control comparison, but each task itself returns a single accuracy/pass-fraction and there is no in-notebook calibration, latency, or documented bias mitigation beyond the MCQ shuffle."},
+      "6_problem_statement": {"level": 1, "justification": "Notebook markdown clearly names the capability (Animal-AI go/no-go inhibitory control) and states the pass/fail rules, but there is no task-page-level motivation connecting it to a broader research question or identifying the gap relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 2, "justification": "Markdown documents the rules, state variable, action semantics, and pass/fail criteria; the dataset config naming scheme is parsed and explained in code comments, frame-skip and min-wait derivation are documented, and the test/control distinction is explicitly described, giving reproducible methodology coverage."},
+      "8_capability_targeting": {"level": 2, "justification": "Targets a specific sub-capability (prepotent-response inhibition in a go/no-go paradigm) with an explicit experimental control (reward-absent control vs reward-present test) plus modality controls (vision/physics), allowing performance deltas to be attributed to inhibition."},
+      "9_item_diversity": {"level": 2, "justification": "Items are organized along structured dimensions encoded in config filenames (ramp count/slope, main/ramp/wall goal types) and split into labeled test vs control conditions across text, vision, physics, and embodied modalities, enabling analysis of where models fail rather than just how often."},
+      "10_model_coverage": {"level": 1, "justification": "Captured outputs reference two distinct models (google/gemini-3.1-pro-preview and google/gemini-3.1-flash-lite-preview), giving limited 2-model comparative coverage."}
+    },
+    "total_score": 8.5
+  },
+  {
+    "benchmark_number": 10,
+    "folder": "10_Observe_Reason_Learn_Verify_Adapt_Loop",
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Ground truth is fully specified in the dataset YAML (each test input mapped to its exact expected output) and scored by deterministic exact-string match per test; YAML parsing handles fenced blocks and type-validates the reply, with unparsable replies counted explicitly rather than crashing."},
+      "2_construct_validity": {"level": 2, "justification": "The task tightly operationalizes its claim of observing/reasoning/verifying/adapting letter-mapping rules: tasks present observation pairs the model must induce rules from, later tasks deliberately override earlier mappings to force adaptation, and the multi-turn conversational structure directly tests the verify/adapt loop described."},
+      "3_code_quality": {"level": 1, "justification": "Code is functional with clean dataclasses, YAML serialization helpers, and explicit exception handling for unparsable replies, but it is a single code cell with no markdown, runs all tasks in one accumulating conversation (context-overflow risk), and uses an ad-hoc penalty-factor scheme rather than separate reported metrics."},
+      "4_sample_size": {"level": 2, "justification": "The dataset contains 130 tasks totaling 487 individual test inputs (confirmed by the run output total_number_of_test_inputs = 487), far exceeding the 20-item threshold."},
+      "5_metric_design": {"level": 1, "justification": "A single primary metric (fraction of correct test inputs) is computed, adjusted by ad-hoc 10% penalty factors for unwanted intro responses and unparsable replies; these penalties are not a distinct performance dimension and there is no markdown justification or calibration/bias discussion."},
+      "6_problem_statement": {"level": 1, "justification": "The embedded benchmark_task_description string names the targeted capability (reason out rules, verify, adapt across interactions) and gives basic motivation, but it does not connect to a broader research question or articulate the gap relative to existing in-context-learning benchmarks."},
+      "7_technical_documentation": {"level": 1, "justification": "The intro prompt and description document the task protocol and required answer format, and the dataset filename hints at the 1-to-1-with-overrides design, but there are no markdown cells, no schema/column documentation, and the scoring penalty rules are only discoverable by reading code."},
+      "8_capability_targeting": {"level": 2, "justification": "Probes a specific sub-capability (in-context rule induction with belief revision when later observations override earlier mappings) with a clear hypothesis, and the dataset deliberately introduces overriding mappings as a controlled manipulation to test adaptation rather than mere memorization."},
+      "9_item_diversity": {"level": 1, "justification": "Tasks vary substantially in complexity (number of letters, mapping count, and presence of overrides increases across task_ids), giving a natural difficulty gradient, but the scoring code reports only a single aggregate fraction and does not break results down by labeled difficulty tier or sub-condition."},
+      "10_model_coverage": {"level": 0, "justification": "The task is run once via .run(kbench.llm) and the captured output shows results from a single model only."}
+    },
+    "total_score": 6.5
+  },
+  {
+    "benchmark_number": 13,
+    "folder": "13_Executive_Functions_The_Cognitive_Contro",
+    "criteria": {
+      "1_answer_correctness": {"level": 0, "justification": "The folder is empty: there are no notebooks, datasets, or source notes, so no ground truth or verification logic exists to evaluate."},
+      "2_construct_validity": {"level": 0, "justification": "No task page or notebook is present, so there is nothing to align with any stated capability; construct validity cannot be established."},
+      "3_code_quality": {"level": 0, "justification": "No code or notebook exists for the task, which the rubric explicitly assigns Level 0."},
+      "4_sample_size": {"level": 0, "justification": "No evaluation items exist (the folder contains zero files), so the count is 0, below the 10-item threshold."},
+      "5_metric_design": {"level": 0, "justification": "No notebook and therefore no metric is computed."},
+      "6_problem_statement": {"level": 0, "justification": "There is no task page or any description file, so no problem statement is available."},
+      "7_technical_documentation": {"level": 0, "justification": "No documentation of any kind exists in the empty folder."},
+      "8_capability_targeting": {"level": 0, "justification": "With no materials present, no targeted capability or hypothesis can be identified."},
+      "9_item_diversity": {"level": 0, "justification": "No items exist, so there is no diversity or sub-condition structure to assess."},
+      "10_model_coverage": {"level": 0, "justification": "No notebook or run output exists, so the task has been run on zero models."}
+    },
+    "total_score": 0.0
+  }
+]

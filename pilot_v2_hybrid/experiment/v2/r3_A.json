@@ -1,0 +1,74 @@
+[
+  {
+    "benchmark_number": 4,
+    "folder": "04_Can_LLMs_Inhibit_Optimization_in_Supply_",
+    "validity_gate": {"passed": true, "justification": "Both notebooks run a full 24-round Beer Game by calling kbench.llm.prompt() for each of 4 roles across 11 sessions, parsing the model's ordering decisions and scoring them via ΔNLL against human-calibrated Sterman baselines. The metric is computed entirely on actual model outputs."},
+    "criteria": {
+      "1_answer_correctness": {"level": 1, "justification": "Ground truth is well-defined as a continuous ΔNLL of the model's order series vs. human-calibrated and leave-one-human-out baselines (deterministic, reproducible). It is not exact-match correctness but a principled numeric score; parse_order_from_response uses a fragile regex that returns 0 on any unparseable line, which can silently corrupt scoring, keeping this at Level 1."},
+      "2_construct_validity": {"level": 1, "justification": "The Beer Game genuinely operationalizes supply-chain ordering/over-reaction (the 'bullwhip' / inhibition-of-optimization claim), and task-2 adds a controlled prompt variant to isolate prompting effects. However the score depends heavily on prompt formatting and a brittle integer parser, and 'human-likeness via ΔNLL' conflates the claimed inhibitory-control construct with mimicry of noisy human heuristics, introducing moderate confounds."},
+      "3_code_quality": {"level": 1, "justification": "Code is functional, runs end-to-end, and uses kbench.task/kbench.chats.new per item for fresh context, but each notebook is a single monolithic code cell with no markdown, the order parser uses a coarse regex with a silent 0 fallback, and there is no handling of malformed model output beyond that."},
+      "4_sample_size": {"level": 2, "justification": "NUM_SESSIONS=11 with 4 roles yields 44 ΔNLL evaluation units per run, and each session is a 24-round interactive episode, well above the >20-item threshold."},
+      "5_metric_design": {"level": 1, "justification": "A single performance dimension is computed (mean ΔNLL/step, a likelihood-fit distance to human behavior). It is non-trivial and somewhat justified in the docstring, but only one underlying dimension is reported (no second distinct metric such as cost or calibration), so it sits at Level 1."},
+      "6_problem_statement": {"level": 1, "justification": "The docstrings name the capability ('Baseline Executive Control', minimizing inventory cost / human-likeness) and frame the Beer Game, but there is no public task-page markdown and no articulation of the research gap relative to existing benchmarks."},
+      "7_technical_documentation": {"level": 1, "justification": "The notebooks have clear section banners and a docstring explaining the ΔNLL scoring and Sterman baseline, and the dataset (11 calibrated sessions) is embedded inline. But there are no markdown cells, no schema description, and edge-case/scoring behavior (e.g., the 0-fallback parser) is undocumented."},
+      "8_capability_targeting": {"level": 2, "justification": "The task probes a specific sub-capability (resisting over-ordering / matching human bounded-rational ordering under delays) with an explicit experimental control: task-1 (baseline prompt) vs task-2 (enhanced decision-guidelines prompt), enabling attribution of performance change to the prompt manipulation."},
+      "9_item_diversity": {"level": 1, "justification": "Items vary across 11 distinct human-calibrated parameter sets and 4 structurally different roles (retailer/wholesaler/distributor/factory), giving natural variation, but there is no explicit difficulty taxonomy or per-condition breakdown reported beyond per-role ΔNLL printouts."},
+      "10_model_coverage": {"level": 0, "justification": "Each notebook runs a single kbench.llm instance; no loop over multiple distinct models and no multi-model comparison is present in the code or outputs."}
+    },
+    "total_score": 5.5
+  },
+  {
+    "benchmark_number": 7,
+    "folder": "07_Embodied_Inhibitory_Control_in_AnimalAI",
+    "validity_gate": {"passed": true, "justification": "Multiple notebooks genuinely call the model: the text go/no-go drives llm.respond(schema=Response) over an environment, the vision/physics tasks send images and score the model's numeric/MCQ answers, and animalai-task-test runs the model live inside the real AnimalAI Unity simulator scoring environment reward. Scores are computed on actual model responses."},
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Each sub-task has unambiguous, code-verifiable ground truth: go/no-go pass requires GO only when DISTANCE==0 (deterministic env check), vision uses exact integer match against _count_goals, physics uses exact letter match against a deterministically shuffled MCQ key, and the embodied task thresholds simulator reward (>1.1). Parsing has safe defaults."},
+      "2_construct_validity": {"level": 2, "justification": "The design isolates inhibitory control through paired test/control conditions (reward-present vs reward-absent) and decomposes confounds with dedicated vision (can it see the goals) and physics (does it understand the ramp dynamics) sub-tasks, so a go/no-go failure can be attributed to inhibition rather than perception or physics misunderstanding. Strong deliberate control structure."},
+      "3_code_quality": {"level": 2, "justification": "Clean, modular code using kbench actors/tasks/evaluate() idiomatically with fresh chats.new per trial, structured Response schemas, robust action parsing with safe defaults, deterministic per-trial MCQ shuffling, and proper environment teardown (aai.close in finally). Markdown documents rules for the text task."},
+      "4_sample_size": {"level": 2, "justification": "The vision/physics tasks iterate over many filtered frame directories (≈143–207 trials reported, e.g. 0.993 over 143 items), and the text task runs 5 scenarios × 10 repeats = 50 runs; well above 20 evaluation items in aggregate, even though the live embodied task uses only 5 configs."},
+      "5_metric_design": {"level": 1, "justification": "Each notebook reports a single fraction-passed/accuracy metric. Multiple distinct dimensions exist across the suite (inhibition pass-rate, perception accuracy, physics accuracy) and the physics task mitigates position bias by shuffling options, but within any task only one accuracy dimension is computed, and no calibration/latency or explicit bias discussion accompanies it."},
+      "6_problem_statement": {"level": 1, "justification": "The text-task markdown clearly explains the go/no-go inhibitory-control rules and the AnimalAI framing, naming the capability. But there is no task-page-level motivation connecting it to a research gap, and several notebooks (vision/physics) lack any problem-statement prose."},
+      "7_technical_documentation": {"level": 2, "justification": "Documentation is comprehensive across notebooks: the text task has explicit rules markdown, trial-directory naming schema is parsed and documented in docstrings, the dataset (configs/frames/min_wait_times.csv) is described, and scoring rules (pass/fail conditions, skip-frame handling, control vs test filtering) are spelled out in code comments and docstrings."},
+      "8_capability_targeting": {"level": 2, "justification": "Targets a specific, well-defined sub-capability (withholding a prepotent GO response until the reward settles) with explicit control conditions (reward-absent control runs) and ablations across modality (text/vision/physics/embodied), enabling attribution of failure to inhibition specifically — a clear cognitive hypothesis with experimental controls."},
+      "9_item_diversity": {"level": 2, "justification": "Items are organized by a structured taxonomy parsed from filenames (n_ramps slope, main/ramp/wall goal type, goal count) with explicit test vs control filtering, and difficulty varies systematically (ramp distances 2–10, goal counts 1–3); the suite reports results per modality and condition, enabling gradient analysis."},
+      "10_model_coverage": {"level": 1, "justification": "Outputs show two distinct models across the notebooks: google/gemini-3.1-pro-preview (vision, physics, embodied, controls) and google/gemini-3.1-flash-lite-preview (text and animalai control), giving 2 models — Level 1."}
+    },
+    "total_score": 8.5
+  },
+  {
+    "benchmark_number": 10,
+    "folder": "10_Observe_Reason_Learn_Verify_Adapt_Loop",
+    "validity_gate": {"passed": true, "justification": "The task sends an intro prompt then prompts the model with each of 130 tasks via llm.prompt(), parses the model's YAML reply, and scores 487 model-produced answers against ground-truth mappings (result 0.108). Scoring is entirely on model outputs."},
+    "criteria": {
+      "1_answer_correctness": {"level": 2, "justification": "Ground truth is fully deterministic — each test input has a unique expected output stored in the dataset, and evaluate_reply does exact string comparison (reply.answers[k] == v). YAML parsing is wrapped in try/except with a graceful empty-reply fallback and an unparsable-reply penalty, so verification is unambiguous and robust."},
+      "2_construct_validity": {"level": 1, "justification": "The task does operationalize inductive rule-learning, override/adaptation, and multi-turn memory (mappings carry across tasks and can be overridden), matching the stated construct. However performance is strongly confounded by strict YAML output-format compliance (the printed run lost points to an intro response and an unparsable block), conflating the reasoning construct with format-following ability."},
+      "3_code_quality": {"level": 1, "justification": "Code is functional with dataclasses, typed signatures, and try/except around parsing, but it is a single monolithic cell with no markdown, the conversation history is never reset between 130 prompts (accumulating context across all tasks, by design but risking overflow), and the brittle YAML-fence slicing can mis-parse."},
+      "4_sample_size": {"level": 2, "justification": "The dataset contains 130 tasks comprising 487 individual test inputs, far exceeding the >20-item threshold and enabling fine-grained scoring."},
+      "5_metric_design": {"level": 1, "justification": "A single dimension is computed (fraction of correct test answers) scaled by a penalty factor for unwanted intro responses and unparsable replies. The penalty mechanism adds nuance but it is still one accuracy dimension with no second distinct measure (e.g., per-task adaptation rate or calibration)."},
+      "6_problem_statement": {"level": 1, "justification": "benchmark_task_description names the capability (reason out rules, verify, adapt across interactions) and gives basic motivation, but it does not connect to a broader research question or identify the gap relative to existing in-context-learning/rule-induction benchmarks."},
+      "7_technical_documentation": {"level": 1, "justification": "The intro_prompt thoroughly documents the task format and the docstring/description explains intent, and the dataset is loaded explicitly. But there are no markdown cells, the dataset schema and how overrides are constructed are undocumented, and the penalty/scoring edge cases are only visible by reading the code."},
+      "8_capability_targeting": {"level": 2, "justification": "Targets a specific sub-capability — incremental rule induction with belief revision when later observations override earlier mappings — with the dataset explicitly built around override cases (letters_1to1_with_overrides), giving a clear hypothesis (models that fail to update mappings will degrade on later tasks) and a built-in manipulation (the overrides)."},
+      "9_item_diversity": {"level": 2, "justification": "Items are structured into 130 sequentially indexed tasks of increasing alphabet size and complexity, with a deliberate override taxonomy and varying numbers of observations/tests per task, enabling a performance gradient across difficulty even though the notebook reports only an aggregate score."},
+      "10_model_coverage": {"level": 0, "justification": "The task runs a single kbench.llm instance over the dataset; no multiple distinct models are evaluated in the code or shown in the outputs."}
+    },
+    "total_score": 6.5
+  },
+  {
+    "benchmark_number": 13,
+    "folder": "13_Executive_Functions_The_Cognitive_Contro",
+    "validity_gate": {"passed": false, "justification": "The folder is completely empty — it contains no notebooks, no datasets, and no source notes. No model is ever called and no evaluation exists, so the task cannot exercise an LLM and fails the gate."},
+    "criteria": {
+      "1_answer_correctness": {"level": 0, "justification": "Forced to Level 0 by the failed validity gate; there is no notebook and therefore no defined ground truth or verification logic at all."},
+      "2_construct_validity": {"level": 0, "justification": "Forced to Level 0 by the failed validity gate; with no implementation present there is nothing that could operationalize the claimed executive-function construct."},
+      "3_code_quality": {"level": 0, "justification": "No code or notebook exists for this task, which the rubric explicitly maps to Level 0."},
+      "4_sample_size": {"level": 0, "justification": "No notebook and no dataset exist, so there are zero evaluation items."},
+      "5_metric_design": {"level": 0, "justification": "No metrics are defined anywhere because no notebook is present."},
+      "6_problem_statement": {"level": 0, "justification": "No task page or any descriptive material is present; a reader cannot determine what is measured."},
+      "7_technical_documentation": {"level": 0, "justification": "No documentation, dataset description, or methodology exists; the folder is empty."},
+      "8_capability_targeting": {"level": 0, "justification": "No task content exists to probe any capability."},
+      "9_item_diversity": {"level": 0, "justification": "There are no items at all, so no diversity or taxonomy can exist."},
+      "10_model_coverage": {"level": 0, "justification": "No notebook and no runs exist, so the task has been run on zero models."}
+    },
+    "total_score": 0.0
+  }
+]
